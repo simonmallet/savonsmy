@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'dashboard' => 'Menu principal',
+    'dashboard' => 'Tableau de bord',
     'email' => 'Adresse courriel',
     'password' => 'Mot de passe',
     'remember_me' => 'Se souvenir de moi',

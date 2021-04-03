@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('lang.dashboard') }}
                     </x-nav-link>
+                    @can(\App\Models\User::PERMISSION_FILL_PURCHASE_ORDER)
+                        test oui PO!
+                    @endcan
                 </div>
             </div>
 
