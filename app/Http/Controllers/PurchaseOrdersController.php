@@ -40,7 +40,27 @@ class PurchaseOrdersController extends Controller
                             'no_perfume_no_oils' => true,
                             'quality_essential_oils' => false,
                         ],
-                    ]
+                    ],
+                    [
+                        'name' => 'Calendule & argousier',
+                        'description' => 'des bonnes calendules...',
+                        'notes' => '',
+                        'availability' => true,
+                        'flags' => [
+                            'no_perfume_no_oils' => true,
+                            'quality_essential_oils' => false,
+                        ],
+                    ],
+                    [
+                        'name' => 'Concombre & menthe (exfoliant)',
+                        'description' => 'frais et dispo!!',
+                        'notes' => 'De retour Septembre 2021',
+                        'availability' => false,
+                        'flags' => [
+                            'no_perfume_no_oils' => false,
+                            'quality_essential_oils' => false,
+                        ],
+                    ],
                 ],
             ],
         ];

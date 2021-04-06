@@ -33,9 +33,15 @@
                                         <td>{{ $variant['name'] }}</td>
                                         <td>{{ $variant['description'] }}</td>
                                         <td>Particularites</td>
-                                        <td><input type="text" name="qty" placeholder="0"></td>
-                                        <td>x 4.20</td>
-                                        <td>0.00 $</td>
+                                        @if (isset($variant['availability']) && $variant['availability'])
+                                            <td><input type="text" name="qty" placeholder="0"></td>
+                                            <td>x 4.20</td>
+                                            <td>0.00 $</td>
+                                        @else
+                                            <td>-</td>
+                                            <td>N/D</td>
+                                            <td>-</td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             @endforeach
