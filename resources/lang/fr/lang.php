@@ -11,6 +11,8 @@ return [
     'register_button' => 'S\'inscrire',
     'navigation_logout_button' => 'Se déconnecter',
     'welcome_message' => 'Bienvenue chez Savons My!',
-    'navigation_purrchase_order_title' => 'Bons de commandes',
+    'navigation_purchase_order_title' => 'Bons de commandes',
+    'purchase_order_add_new_button' => 'Créer un bon de commande',
+    'purchase_order_add_main_title' => 'Envoyer un bon de commande',
     'validation_error_title' => 'Oops! Une erreur est survenue!',
 ];

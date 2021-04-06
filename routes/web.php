@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function() {
     })->name('dashboard');
 
     Route::get('/purchase_orders', [PurchaseOrdersController::class, 'index'])->name('purchase_orders.index');
+    Route::get('/purchase_orders/add', [PurchaseOrdersController::class, 'addIndex'])->name('purchase_orders.add.index');
 });
 
 require __DIR__.'/auth.php';
