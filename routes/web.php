@@ -23,8 +23,9 @@ Route::group(['middleware' => 'auth'], function() {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/purchase_orders', [PurchaseOrdersController::class, 'index'])->name('purchase_orders.index');
-    Route::get('/purchase_orders/add', [PurchaseOrdersController::class, 'addIndex'])->name('purchase_orders.add.index');
+    Route::get('/purchase-orders', [PurchaseOrdersController::class, 'index'])->name('purchase_orders.index');
+    Route::get('/purchase-orders/add', [PurchaseOrdersController::class, 'addIndex'])->name('purchase_orders.add.index');
+    Route::post('/purchase-orders/add', [PurchaseOrdersController::class, 'addSubmit'])->name('purchase_orders.add.submit');
 });
 
 require __DIR__.'/auth.php';

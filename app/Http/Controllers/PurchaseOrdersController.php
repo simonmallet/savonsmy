@@ -102,4 +102,9 @@ class PurchaseOrdersController extends Controller
         ];
         return view('purchase_orders.add')->with('items', $items);
     }
+
+    public function addSubmit(Request $request)
+    {
+        return redirect()->route('purchase_orders.index');
+    }
 }

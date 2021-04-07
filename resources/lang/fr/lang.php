@@ -10,6 +10,8 @@ return [
     'forgot_password' => 'Oublié votre mot de passe?',
     'register_button' => 'S\'inscrire',
     'navigation_logout_button' => 'Se déconnecter',
+    'generic_send_button' => 'Envoyer',
+    'generic_cancel_button' => 'Annuler',
     'welcome_message' => 'Bienvenue chez Savons My!',
     'navigation_purchase_order_title' => 'Bons de commandes',
     'purchase_order_add_new_button' => 'Créer un bon de commande',

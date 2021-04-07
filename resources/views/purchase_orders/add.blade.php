@@ -19,6 +19,10 @@
                             </div>
                         @endif
 
+                        <form method="POST" action="{{ route('purchase_orders.add.submit') }}">
+
+                        {{ csrf_field() }}
+
                         <table class="table table-striped table-hover">
                             @foreach($items as $item)
                                 <tr>
@@ -53,6 +57,11 @@
                                 @endforeach
                             @endforeach
                         </table>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <input class="btn btn-primary" type="submit" value="{{ __('lang.generic_send_button') }}">
+                            <a class="btn btn-secondary" href="{{ route('purchase_orders.index') }}" role="button">{{ __('lang.generic_cancel_button') }}</a>
+                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
