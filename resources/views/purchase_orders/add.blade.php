@@ -26,16 +26,23 @@
                                     <td>Description</td>
                                     <td>Particularites</td>
                                     <td colspan="2">Quantite</td>
-                                    <td>Total</td>
+                                    <td>&nbsp;</td>
                                 </tr>
                                 @foreach($item['variants'] as $variant)
                                     <tr>
                                         <td>{{ $variant['name'] }}</td>
                                         <td>{{ $variant['description'] }}</td>
-                                        <td>Particularites</td>
+                                        <td>
+                                            @if (isset($variant['flags']['quality_essential_oils']) && $variant['flags']['quality_essential_oils'])
+                                                <div class="custom-icon-essential-oils"></div>
+                                            @endif
+                                            @if (isset($variant['flags']['no_perfume_no_oils']) && $variant['flags']['no_perfume_no_oils'])
+                                                <div class="custom-icon-no-perfume"></div>
+                                            @endif
+                                        </td>
                                         @if (isset($variant['availability']) && $variant['availability'])
                                             <td><input type="text" name="qty" placeholder="0"></td>
-                                            <td>x 4.20</td>
+                                            <td>x @displayAmount($item['price'] * 70 / 100)</td>
                                             <td>0.00 $</td>
                                         @else
                                             <td>-</td>

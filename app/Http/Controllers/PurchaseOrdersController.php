@@ -63,6 +63,42 @@ class PurchaseOrdersController extends Controller
                     ],
                 ],
             ],
+            [
+                'price' => 15,
+                'name' => 'Beurre fouetté hydratan',
+                'variants' => [
+                    [
+                        'name' => 'Inodore',
+                        'description' => 'Ouin c ca',
+                        'notes' => '',
+                        'availability' => true,
+                        'flags' => [
+                            'no_perfume_no_oils' => true,
+                            'quality_essential_oils' => false,
+                        ],
+                    ],
+                    [
+                        'name' => 'Lavande',
+                        'description' => 'un gout...',
+                        'notes' => '',
+                        'availability' => true,
+                        'flags' => [
+                            'no_perfume_no_oils' => false,
+                            'quality_essential_oils' => true,
+                        ],
+                    ],
+                    [
+                        'name' => 'Coco-lime',
+                        'description' => 'nice',
+                        'notes' => '',
+                        'availability' => true,
+                        'flags' => [
+                            'no_perfume_no_oils' => false,
+                            'quality_essential_oils' => false,
+                        ],
+                    ],
+                ],
+            ],
         ];
         return view('purchase_orders.add')->with('items', $items);
     }
