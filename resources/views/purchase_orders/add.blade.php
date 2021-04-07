@@ -45,9 +45,9 @@
                                             @endif
                                         </td>
                                         @if (isset($variant['availability']) && $variant['availability'])
-                                            <td><input type="text" name="qty" placeholder="0"></td>
-                                            <td>x @displayAmount($item['price'] * 70 / 100)</td>
-                                            <td>0.00 $</td>
+                                            <td><input type="text" id="variant_qty_{{ $variant['id'] }}" name="variant_qty_{{ $variant['id'] }}" placeholder="0" onkeyup="testAlert({{ $variant['id'] }})"></td>
+                                            <td>x @displayAmount($item['price'] * 70 / 100) <input type="hidden" id="variant_user_price_{{ $variant['id'] }}" value="{{ $item['price'] * 70 / 100 }}"></td>
+                                            <td><span id="variant_total_{{ $variant['id'] }}">0,00 $ CA</span></td>
                                         @else
                                             <td>-</td>
                                             <td>N/D</td>
@@ -67,4 +67,25 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js_custom')
+    <script>
+        function testAlert(variantId)
+        {
+            let qty = $('#variant_qty_' + variantId).val();
+            let variantPrice = $('#variant_user_price_' + variantId).val();
+
+            let formatter = new Intl.NumberFormat('fr-CA', {
+                style: 'currency',
+                currency: 'CAD',
+
+                // These options are needed to round to whole numbers if that's what you want.
+                //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+                //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+            });
+
+            $('#variant_total_' + variantId).text(formatter.format(qty * variantPrice));
+        }
+    </script>
 @endsection

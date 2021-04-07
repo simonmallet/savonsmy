@@ -32,6 +32,7 @@ class PurchaseOrdersController extends Controller
                 'name' => 'Savon en barre',
                 'variants' => [
                     [
+                        'id' => 1,
                         'name' => 'Avoine & miel (léger exfoliant)',
                         'description' => 'blabla avoine et miel',
                         'notes' => '',
@@ -42,6 +43,7 @@ class PurchaseOrdersController extends Controller
                         ],
                     ],
                     [
+                        'id' => 2,
                         'name' => 'Calendule & argousier',
                         'description' => 'des bonnes calendules...',
                         'notes' => '',
@@ -52,6 +54,7 @@ class PurchaseOrdersController extends Controller
                         ],
                     ],
                     [
+                        'id' => 3,
                         'name' => 'Concombre & menthe (exfoliant)',
                         'description' => 'frais et dispo!!',
                         'notes' => 'De retour Septembre 2021',
@@ -68,6 +71,7 @@ class PurchaseOrdersController extends Controller
                 'name' => 'Beurre fouetté hydratan',
                 'variants' => [
                     [
+                        'id' => 4,
                         'name' => 'Inodore',
                         'description' => 'Ouin c ca',
                         'notes' => '',
@@ -78,6 +82,7 @@ class PurchaseOrdersController extends Controller
                         ],
                     ],
                     [
+                        'id' => 5,
                         'name' => 'Lavande',
                         'description' => 'un gout...',
                         'notes' => '',
@@ -88,6 +93,7 @@ class PurchaseOrdersController extends Controller
                         ],
                     ],
                     [
+                        'id' => 6,
                         'name' => 'Coco-lime',
                         'description' => 'nice',
                         'notes' => '',
