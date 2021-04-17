@@ -14,19 +14,47 @@
                     </div>
 
                     <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
+                        @if (Session::has('message'))
+                            <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
                         @endif
 
-                        Coucou...
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead class="table-secondary">
+                                <tr>
+                                    <th scope="col">Numéro de commande</th>
+                                    <th scope="col">Nombre d'articles</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Envoyé le</th>
+                                    <th scope="col">Dernière mise à jour</th>
+                                    <th scope="col" class="text-center">Action</th>
+                                </tr>
+                                </thead>
+                                @forelse($historicalPurchaseOrders as $item)
+                                    <tr>
+                                        <td>{{ $item['id'] }}</td>
+                                        <td>{{ $item['amount_items'] }}</td>
+                                        <td>{{ __('lang.order_status_'.$item['status']) }}</td>
+                                        <td>{{ $item['created_at'] }}</td>
+                                        <td>{{ $item['updated_at'] }}</td>
+                                        <td class="text-center">
+                                            @switch($item['status'])
+                                                @case(\App\Constants\OrderStatus::NOT_TREATED)
+                                                    <button class="btn btn-primary">Modifier</button>
+                                                    @break
+                                                @default
+                                                    <button class="btn btn-primary">Voir</button>
+                                            @endswitch
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4">Aucune commande est enregistrée dans le système</td>
+                                    </tr>
+                                @endforelse
+                            </table>
+                        </div>
 
-                        @cannot(\App\Models\User::PERMISSION_FILL_PURCHASE_ORDER)
-                            <div>
-                                Votre compte n'a pas encore été activé par l'administrateur de ce site. Si le problème perdure, svp écrire à <a href="mailto:{{ config('contact.email') }}?subject=Activation compte partenaire">{{ config('contact.email') }}</a>
-                            </div>
-                        @endcan
                     </div>
                 </div>
             </div>

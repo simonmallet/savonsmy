@@ -17,4 +17,7 @@ return [
     'purchase_order_add_new_button' => 'Créer un bon de commande',
     'purchase_order_add_main_title' => 'Envoyer un bon de commande',
     'validation_error_title' => 'Oops! Une erreur est survenue!',
+    'order_status_not_treated' => 'Non traité',
+    'order_status_in_progress' => 'En traitement',
+    'order_status_completed' => 'Complété',
 ];
