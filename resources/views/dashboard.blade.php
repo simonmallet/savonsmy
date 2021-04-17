@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('lang.navigation_dashboard_title') }}</div>
+                    <div class="card-header lead">{{ __('lang.navigation_dashboard_title') }}</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -14,7 +14,7 @@
                             </div>
                         @endif
 
-                        {{ __('lang.welcome_message') }}
+                        {{ __('lang.welcome_message', ['user' => Auth::user()->name]) }}
 
                         @cannot(\App\Models\User::PERMISSION_FILL_PURCHASE_ORDER)
                             <div>

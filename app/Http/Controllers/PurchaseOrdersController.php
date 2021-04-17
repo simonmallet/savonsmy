@@ -106,7 +106,7 @@ class PurchaseOrdersController extends Controller
                 ],
             ],
         ];
-        return view('purchase_orders.add')->with('items', $items);
+        return view('purchase_orders.add')->with('items', $items)->with('user', ['name' => 'Simon Mallet', 'discount_from_retail_price' => 30]);
     }
 
     public function addSubmit(Request $request)

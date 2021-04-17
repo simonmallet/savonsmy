@@ -8,7 +8,7 @@
                     <div class="card-header">
 
                         <div class="d-grid d-md-flex justify-content-md-between">
-                            <div class="align-self-center">{{ __('lang.purchase_order_add_main_title') }}</div>
+                            <div class="align-self-center lead">{{ __('lang.purchase_order_add_main_title') }}</div>
                         </div>
                     </div>
 
@@ -23,15 +23,18 @@
 
                         {{ csrf_field() }}
 
+                        <div class="table-responsive">
                         <table class="table table-striped table-hover">
                             @foreach($items as $item)
-                                <tr>
-                                    <td><strong> {{ $item['name'] }} ({{ $item['price'] }} $) </strong></td>
-                                    <td>Description</td>
-                                    <td>Particularites</td>
-                                    <td colspan="2">Quantite</td>
-                                    <td>&nbsp;</td>
-                                </tr>
+                                <thead class="table-secondary">
+                                    <tr>
+                                        <th scope="col">{{ $item['name'] }} ({{ $item['price'] }} $)</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Particularites</th>
+                                        <th scope="col" colspan="2">Quantite</th>
+                                        <th scope="col">&nbsp;</th>
+                                    </tr>
+                                </thead>
                                 @foreach($item['variants'] as $variant)
                                     <tr>
                                         <td>{{ $variant['name'] }}</td>
@@ -46,7 +49,7 @@
                                         </td>
                                         @if (isset($variant['availability']) && $variant['availability'])
                                             <td><input type="text" id="variant_qty_{{ $variant['id'] }}" name="variant_qty_{{ $variant['id'] }}" placeholder="0" onkeyup="testAlert({{ $variant['id'] }})"></td>
-                                            <td>x @displayAmount($item['price'] * 70 / 100) <input type="hidden" id="variant_user_price_{{ $variant['id'] }}" value="{{ $item['price'] * 70 / 100 }}"></td>
+                                            <td>x @displayAmount($item['price'] * (100 - $user['discount_from_retail_price']) / 100) <input type="hidden" id="variant_user_price_{{ $variant['id'] }}" value="{{ $item['price'] * (100 - $user['discount_from_retail_price']) / 100 }}"></td>
                                             <td><span id="variant_total_{{ $variant['id'] }}">0,00 $ CA</span></td>
                                         @else
                                             <td>-</td>
@@ -57,8 +60,9 @@
                                 @endforeach
                             @endforeach
                         </table>
+                        </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <input class="btn btn-primary" type="submit" value="{{ __('lang.generic_send_button') }}">
+                            <input class="btn btn-primary mr-2" type="submit" value="{{ __('lang.generic_send_button') }}">
                             <a class="btn btn-secondary" href="{{ route('purchase_orders.index') }}" role="button">{{ __('lang.generic_cancel_button') }}</a>
                         </div>
                         </form>

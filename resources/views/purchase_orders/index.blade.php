@@ -8,7 +8,7 @@
                     <div class="card-header">
 
                         <div class="d-grid d-md-flex justify-content-md-between">
-                            <div class="align-self-center">{{ __('lang.navigation_purchase_order_title') }}</div>
+                            <div class="align-self-center lead">{{ __('lang.navigation_purchase_order_title') }}</div>
                             <a class="btn btn-primary" href="{{ route('purchase_orders.add.index') }}" role="button">{{ __('lang.purchase_order_add_new_button') }}</a>
                         </div>
                     </div>

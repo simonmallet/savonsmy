@@ -12,7 +12,7 @@ return [
     'navigation_logout_button' => 'Se déconnecter',
     'generic_send_button' => 'Envoyer',
     'generic_cancel_button' => 'Annuler',
-    'welcome_message' => 'Bienvenue chez Savons My!',
+    'welcome_message' => 'Bonjour :user! Bienvenue chez Savons My!',
     'navigation_purchase_order_title' => 'Bons de commandes',
     'purchase_order_add_new_button' => 'Créer un bon de commande',
     'purchase_order_add_main_title' => 'Envoyer un bon de commande',
