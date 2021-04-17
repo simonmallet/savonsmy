@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PurchaseOrdersController;
+use App\Http\Controllers\AdminDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,9 +29,13 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/purchase-orders/add', [PurchaseOrdersController::class, 'addIndex'])->name('purchase_orders.add.index');
         Route::post('/purchase-orders/add', [PurchaseOrdersController::class, 'addSubmit'])->name('purchase_orders.add.submit');
     });
+
+    Route::group(['prefix' => 'admin', 'middleware' => ['role:super-admin']], function () {
+        Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    });
 });
 
-require __DIR__.'/auth.php';
+//require __DIR__.'/auth.php';
 
 Auth::routes();
 

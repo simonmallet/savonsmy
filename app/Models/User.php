@@ -12,7 +12,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
 
-    const ROLE_SUPER_ADMIN = 'Super Admin';
+    const ROLE_SUPER_ADMIN = 'super-admin';
     const ROLE_PARTNER = 'partner';
 
     const PERMISSION_FILL_PURCHASE_ORDER = 'fill_purchase_order';
