@@ -16,6 +16,8 @@ return [
     'navigation_purchase_order_title' => 'Bons de commandes',
     'purchase_order_add_new_button' => 'Créer un bon de commande',
     'purchase_order_add_main_title' => 'Envoyer un bon de commande',
+
+    // Variables
     'validation_error_title' => 'Oops! Une erreur est survenue!',
     'order_status_not_treated' => 'Non traité',
     'order_status_in_progress' => 'En traitement',

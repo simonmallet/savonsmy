@@ -24,9 +24,16 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+                @guest
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        {{ config('app.name', 'Laravel') }}
+                    </a>
+                @else
+                    <a class="navbar-brand" href="{{ auth()->user()->hasrole(\App\Models\User::ROLE_SUPER_ADMIN) ? route('admin.dashboard') : url('/') }}">
+                        {{ config('app.name', 'Laravel') }}
+                    </a>
+                @endguest
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -35,16 +42,33 @@
                     <!-- Left Side Of Navbar -->
                     @guest
                     @else
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a class="nav-link {{ (request()->routeIs('dashboard')) ? 'active' : '' }}" href="{{ route('dashboard') }}">{{ __('lang.navigation_dashboard_title') }}</a>
-                            </li>
-                            @can(\App\Models\User::PERMISSION_FILL_PURCHASE_ORDER)
+                        @role(\App\Models\User::ROLE_SUPER_ADMIN)
+                            <ul class="navbar-nav mr-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link {{ (request()->routeIs('purchase_orders.*')) ? 'active' : '' }}" href="{{ route('purchase_orders.index') }}">{{ __('lang.navigation_purchase_order_title') }}</a>
+                                    <a class="nav-link {{ (request()->routeIs('admin.dashboard')) ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">{{ __('lang.navigation_dashboard_title') }}</a>
                                 </li>
-                            @endcan
-                        </ul>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Commandes</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Clients</a>
+                                </li>
+                            </ul>
+                        @else
+                            <!-- Member menu -->
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link {{ (request()->routeIs('dashboard')) ? 'active' : '' }}" href="{{ route('dashboard') }}">{{ __('lang.navigation_dashboard_title') }}</a>
+                                </li>
+                                @can(\App\Models\User::PERMISSION_FILL_PURCHASE_ORDER)
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ (request()->routeIs('purchase_orders.*')) ? 'active' : '' }}" href="{{ route('purchase_orders.index') }}">{{ __('lang.navigation_purchase_order_title') }}</a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        @endrole
                     @endguest
 
                     <!-- Right Side Of Navbar -->
