@@ -18,7 +18,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    @yield('js_custom')
+    <!-- Sortable.js -->
+    <script src="/js/Sortable.min.js"></script>
 </head>
 <body>
     <div id="app">
@@ -114,5 +115,6 @@
             @yield('content')
         </main>
     </div>
+    @yield('js_custom')
 </body>
 </html>
