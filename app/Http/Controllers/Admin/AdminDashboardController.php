@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Constants\OrderStatus;
+use App\Http\Controllers\Controller;
 
 class AdminDashboardController extends Controller
 {

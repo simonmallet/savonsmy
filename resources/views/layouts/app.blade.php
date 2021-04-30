@@ -56,6 +56,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Clients</a>
                                 </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link {{ (request()->routeIs('admin.poform.index')) ? 'active' : '' }}" href="{{ route('admin.poform.index') }}">Mise à jour du formulaire</a>
+                                </li>
                             </ul>
                         @else
                             <!-- Member menu -->

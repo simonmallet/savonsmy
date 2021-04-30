@@ -31,6 +31,7 @@
                                     <th scope="col" class="text-center">Action</th>
                                 </tr>
                                 </thead>
+                                <tbody>
                                 @forelse($historicalPurchaseOrders as $item)
                                     <tr>
                                         <td>{{ $item['id'] }}</td>
@@ -49,6 +50,7 @@
                                         <td colspan="4">Aucune commande est enregistrée dans le système</td>
                                     </tr>
                                 @endforelse
+                                </tbody>
                             </table>
                         </div>
 

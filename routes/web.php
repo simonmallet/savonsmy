@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PurchaseOrdersController;
-use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::group(['prefix' => 'admin', 'middleware' => ['role:super-admin']], function () {
         Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+        Route::get('poform', [\App\Http\Controllers\Admin\POFormUpdateController::class, 'index'])->name('admin.poform.index');
     });
 });
 

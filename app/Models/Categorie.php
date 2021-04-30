@@ -21,4 +21,9 @@ class Categorie extends Model
         'enabled',
         'rank',
     ];
+
+    public function items()
+    {
+        return $this->hasMany('App\Models\CategoryItem', 'category_id', 'id');
+    }
 }
