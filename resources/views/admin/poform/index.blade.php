@@ -14,20 +14,26 @@
                             </div>
                         @endif
 
+                        <form name="poform" id="poform">
                         <div class="table-responsive" id="categories-container">
                             @forelse($categories as $category)
                                 <table class="table table-striped table-hover">
                                     <thead class="table-secondary">
                                     <tr>
-                                        <th scope="col">{{ $category['name'] }} (Prix {{ $category['price'] }})</th>
-                                        <th scope="col">Quantite</th>
+                                        <th scope="col" style="width: 285px;"><input type="text" class="input-header-form font-weight-bold" name="category_name_{{$category['id']}}" id="category_name_{{$category['id']}}" value="{{$category['name']}}" placeholder="Nom de catégorie">
+                                            (Prix <input type="text" class="input-header-form input-price font-weight-bold" name="category_price_{{$category['id']}}" id="category_price_{{$category['id']}}" value="{{$category['price']}}" placeholder="0.00">)</th>
+                                        <th colspan="3" scope="col"></th>
+                                        <th class="my-handle-header"><span class="my-handle">::</span></th>
                                     </tr>
                                     </thead>
                                     <tbody id="tablesimon">
                                     @forelse($category->items as $item)
                                         <tr>
-                                            <td>{{ $item['name'] }}</td>
-                                            <td>{{ $item['description'] }}</td>
+                                            <td><input type="text" style="width: 285px;" class="input-header-form" name="item_name_{{$item['id']}}" id="item_name_{{$item['id']}}" value="{{$item['name']}}" placeholder="Nom de variant"></td>
+                                            <td style="width: 450px;"><input type="text" style="width: 450px;" class="input-header-form" name="item_description_{{$item['id']}}" id="item_description_{{$item['id']}}" value="{{$item['description']}}" placeholder="Description"></td>
+                                            <td>Sku: <input type="text" style="width: 40px;" class="input-header-form" name="item_sku_{{$item['id']}}" id="item_sku_{{$item['id']}}" value="{{$item['sku']}}" placeholder="0000"></td>
+                                            <td>Actif <input type="checkbox" name="item_enabled_{{$item['id']}}" id="item_enabled_{{$item['id']}}" value="{{$item['enabled']}}" {{$item['enabled'] ? 'checked' : ''}}></td>
+                                            <td><span class="my-handle">::</span></td>
                                         </tr>
                                     @empty
                                         <tr>
@@ -40,6 +46,7 @@
                                 <div>Hmm.. Il semble que vous n'avez jamais configuré de formulaire</div>
                             @endforelse
                         </div>
+                        </form>
 
                     </div>
                 </div>
@@ -54,12 +61,14 @@
             group: 'foo',
             animation: 200,
             ghostClass: 'ghost',
+            handle: ".my-handle",
         });
 
         Sortable.create(document.getElementById('categories-container'), {
             group: 'foo',
             animation: 200,
             ghostClass: 'ghost',
+            handle: ".my-handle",
         });
     </script>
 @endsection

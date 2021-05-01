@@ -3,3 +3,12 @@
   opacity: .5;
   background: #C8EBFB;
 }
+
+.my-handle {
+  cursor: move;
+  cursor: -webkit-grabbing;
+}
+
+.my-handle-header {
+  width: 15px;
+}
