@@ -31,7 +31,7 @@
                                             (Prix <input type="text" class="input-header-form input-price font-weight-bold" name="category[{{$category['id']}}][price]" value="{{$category['price']}}" placeholder="0.00">)</th>
                                         <th colspan="4" scope="col">
                                             <div class="d-flex flex-row justify-content-end">
-                                                <div><input class="btn-sm btn-primary" type="button" onclick="addVariant('category-tbody-'+{{$category['id']}})" value="Ajouter un variant"></div>
+                                                <div><input class="btn-sm btn-primary" type="button" onclick="addVariant('category-tbody-{{$category['id']}}')" value="Ajouter un variant"></div>
                                                 <div class="my-handle-header ml-3"><span class="my-handle">::</span></div>
                                             </div>
                                         </th>
@@ -102,13 +102,13 @@
                 '(Prix <input type="text" class="input-header-form input-price font-weight-bold" name="category['+categoryIndex+'][price]" placeholder="0.00">)</th>' +
                 '<th colspan="4" scope="col">' +
                     '<div class="d-flex flex-row justify-content-end">' +
-                        '<div><input class="btn-sm btn-primary" type="button" onclick="addVariant(\'category-tbody-\''+categoryIndex+')" value="Ajouter un variant"></div>' +
+                        '<div><input class="btn-sm btn-primary" type="button" onclick="addVariant(\'category-tbody-'+categoryIndex+'\')" value="Ajouter un variant"></div>' +
                         '<div class="my-handle-header ml-3"><span class="my-handle">::</span></div>' +
                     '</div>' +
                 '</th>' +
                 '</tr>' +
                 '</thead>' +
-                '<tbody class="category-items"><tr><td colspan="5">Aucun item trouve</td>' +
+                '<tbody class="category-items" id="category-tbody-'+categoryIndex+'"><tr><td colspan="5">Aucun item trouve</td>' +
                 '</tr></tbody></table>');
             categoryIndex++;
         }
