@@ -26,7 +26,7 @@
                                         <th class="my-handle-header"><span class="my-handle">::</span></th>
                                     </tr>
                                     </thead>
-                                    <tbody id="tablesimon">
+                                    <tbody class="category-items">
                                     @forelse($category->items as $item)
                                         <tr>
                                             <td><input type="text" style="width: 285px;" class="input-header-form" name="item_name_{{$item['id']}}" id="item_name_{{$item['id']}}" value="{{$item['name']}}" placeholder="Nom de variant"></td>
@@ -57,12 +57,15 @@
 
 @section('js_custom')
     <script>
-        Sortable.create(document.getElementById('tablesimon'), {
-            group: 'foo',
-            animation: 200,
-            ghostClass: 'ghost',
-            handle: ".my-handle",
-        });
+        const elementList = document.getElementsByClassName('category-items');
+
+        for (let i = 0; i < elementList.length; i++) {
+            Sortable.create(elementList[i], {
+                animation: 200,
+                ghostClass: 'ghost',
+                handle: ".my-handle",
+            });
+        }
 
         Sortable.create(document.getElementById('categories-container'), {
             group: 'foo',
