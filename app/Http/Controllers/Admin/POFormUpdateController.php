@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Constants\OrderStatus;
+use App\Domain\DAO\CategoryDAO;
 use App\Domain\DAO\POFormDAO;
 use App\Domain\DAO\VersionDAO;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class POFormUpdateController extends Controller
 {
@@ -15,10 +16,14 @@ class POFormUpdateController extends Controller
     /** @var VersionDAO */
     private $versionDAO;
 
-    public function __construct(POFormDAO $POFormDAO, VersionDAO $versionDAO)
+    /** @var CategoryDAO */
+    private $categoryDAO;
+
+    public function __construct(POFormDAO $POFormDAO, VersionDAO $versionDAO, CategoryDAO $categoryDAO)
     {
         $this->POFormDAO = $POFormDAO;
         $this->versionDAO = $versionDAO;
+        $this->categoryDAO = $categoryDAO;
     }
 
     /**
@@ -30,6 +35,16 @@ class POFormUpdateController extends Controller
     {
         return view('admin.poform.index')
             ->with('categories', $this->POFormDAO->getCurrentPOForm())
-            ->with('currentVersion', $this->versionDAO->getCurrentVersion());
+            ->with('currentVersion', $this->versionDAO->getCurrentVersion())
+            ->with('nextAvailableCategoryId', $this->categoryDAO->getNextAvailableCategoryId());
+    }
+
+    public function submit(Request $request)
+    {
+        error_log(print_r($request->all()));
+        return view('admin.poform.index')
+            ->with('categories', $this->POFormDAO->getCurrentPOForm())
+            ->with('currentVersion', $this->versionDAO->getCurrentVersion())
+            ->with('nextAvailableCategoryId', $this->categoryDAO->getNextAvailableCategoryId());
     }
 }
