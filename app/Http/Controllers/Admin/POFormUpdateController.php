@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Domain\DAO\CategoryDAO;
+use App\Domain\DAO\CategoryItemDAO;
 use App\Domain\DAO\POFormDAO;
 use App\Domain\DAO\VersionDAO;
 use App\Http\Controllers\Controller;
@@ -19,11 +20,15 @@ class POFormUpdateController extends Controller
     /** @var CategoryDAO */
     private $categoryDAO;
 
-    public function __construct(POFormDAO $POFormDAO, VersionDAO $versionDAO, CategoryDAO $categoryDAO)
+    /** @var CategoryItemDAO */
+    private $categoryItemDAO;
+
+    public function __construct(POFormDAO $POFormDAO, VersionDAO $versionDAO, CategoryDAO $categoryDAO, CategoryItemDAO $categoryItemDAO)
     {
         $this->POFormDAO = $POFormDAO;
         $this->versionDAO = $versionDAO;
         $this->categoryDAO = $categoryDAO;
+        $this->categoryItemDAO = $categoryItemDAO;
     }
 
     /**
@@ -36,7 +41,8 @@ class POFormUpdateController extends Controller
         return view('admin.poform.index')
             ->with('categories', $this->POFormDAO->getCurrentPOForm())
             ->with('currentVersion', $this->versionDAO->getCurrentVersion())
-            ->with('nextAvailableCategoryId', $this->categoryDAO->getNextAvailableCategoryId());
+            ->with('nextAvailableCategoryId', $this->categoryDAO->getNextAvailableCategoryId())
+            ->with('nextAvailableCategoryItemId', $this->categoryItemDAO->getNextAvailableCategoryItemId());
     }
 
     public function submit(Request $request)
@@ -45,6 +51,7 @@ class POFormUpdateController extends Controller
         return view('admin.poform.index')
             ->with('categories', $this->POFormDAO->getCurrentPOForm())
             ->with('currentVersion', $this->versionDAO->getCurrentVersion())
-            ->with('nextAvailableCategoryId', $this->categoryDAO->getNextAvailableCategoryId());
+            ->with('nextAvailableCategoryId', $this->categoryDAO->getNextAvailableCategoryId())
+            ->with('nextAvailableCategoryItemId', $this->categoryItemDAO->getNextAvailableCategoryItemId());
     }
 }

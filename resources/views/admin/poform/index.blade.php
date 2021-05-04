@@ -31,7 +31,7 @@
                                             (Prix <input type="text" class="input-header-form input-price font-weight-bold" name="category[{{$category['id']}}][price]" value="{{$category['price']}}" placeholder="0.00">)</th>
                                         <th colspan="4" scope="col">
                                             <div class="d-flex flex-row justify-content-end">
-                                                <div><input class="btn-sm btn-primary" type="button" onclick="addVariant('category-tbody-{{$category['id']}}')" value="Ajouter un variant"></div>
+                                                <div><input class="btn-sm btn-primary" type="button" onclick="addVariant('category-tbody-{{$category['id']}}', {{$category['id']}})" value="Ajouter un variant"></div>
                                                 <div class="my-handle-header ml-3"><span class="my-handle">::</span></div>
                                             </div>
                                         </th>
@@ -76,22 +76,26 @@
             const elementList = document.getElementsByClassName('category-items');
 
             for (let i = 0; i < elementList.length; i++) {
-                Sortable.create(elementList[i], {
-                    animation: 200,
-                    ghostClass: 'ghost',
-                    handle: ".my-handle",
-                });
+                createSortable(elementList[i]);
             }
 
-            Sortable.create(document.getElementById('categories-container'), {
-                group: 'foo',
+            createSortable(document.getElementById('categories-container'), 'foo');
+        });
+
+        function createSortable(element, groupName)
+        {
+            let sortable = Sortable.create(element, {
                 animation: 200,
                 ghostClass: 'ghost',
                 handle: ".my-handle",
             });
-        });
+            if (groupName) {
+                sortable.option('group', groupName);
+            }
+        }
 
         let categoryIndex = {{$nextAvailableCategoryId}};
+        let categoryItemIndex = {{$nextAvailableCategoryItemId}};
         function addCategory()
         {
             $('#categories-container').append(
@@ -102,7 +106,7 @@
                 '(Prix <input type="text" class="input-header-form input-price font-weight-bold" name="category['+categoryIndex+'][price]" placeholder="0.00">)</th>' +
                 '<th colspan="4" scope="col">' +
                     '<div class="d-flex flex-row justify-content-end">' +
-                        '<div><input class="btn-sm btn-primary" type="button" onclick="addVariant(\'category-tbody-'+categoryIndex+'\')" value="Ajouter un variant"></div>' +
+                        '<div><input class="btn-sm btn-primary" type="button" onclick="addVariant(\'category-tbody-'+categoryIndex+'\', '+categoryIndex+')" value="Ajouter un variant"></div>' +
                         '<div class="my-handle-header ml-3"><span class="my-handle">::</span></div>' +
                     '</div>' +
                 '</th>' +
@@ -110,12 +114,27 @@
                 '</thead>' +
                 '<tbody class="category-items" id="category-tbody-'+categoryIndex+'"><tr><td colspan="5">Aucun item trouve</td>' +
                 '</tr></tbody></table>');
+
+            createSortable(document.getElementById('category-tbody-'+categoryIndex));
+
             categoryIndex++;
         }
 
-        function addVariant(elementId)
+        function addVariant(elementId, categoryId)
         {
-            $('#' + elementId).append('<tr><td>test</td></tr>');
+            const selector = $('#' + elementId);
+            if (selector.html().search('Aucun item trouve') !== -1) {
+                selector.children('tr').remove();
+            }
+            selector.append('<tr>' +
+                '<td><input type="text" style="width: 285px;" class="input-header-form" name="category['+categoryId+'][items]['+categoryItemIndex+'][name]" placeholder="Nom de variant"></td>' +
+                '<td style="width: 450px;"><input type="text" style="width: 450px;" class="input-header-form" name="category['+categoryId+'][items]['+categoryItemIndex+'][description]" placeholder="Description"></td>' +
+                '<td>Sku: <input type="text" style="width: 40px;" class="input-header-form" name="category['+categoryId+'][items]['+categoryItemIndex+'][sku]" placeholder="0000"></td>' +
+                '<td>Actif <input type="checkbox" name="category['+categoryId+'][items]['+categoryItemIndex+'][enabled]" checked></td>' +
+                '<td><span class="my-handle">::</span></td>' +
+                '</tr>');
+            categoryItemIndex++;
         }
+
     </script>
 @endsection
