@@ -3,6 +3,7 @@
 namespace App\Domain\DAO;
 
 use App\Models\Categorie;
+use Illuminate\Support\Collection;
 
 class POFormDAO
 {
@@ -14,7 +15,7 @@ class POFormDAO
         $this->versionDAO = $versionDAO;
     }
 
-    public function getCurrentPOForm()
+    public function getCurrentPOForm(): Collection
     {
         return Categorie::where('version_id', $this->versionDAO->getCurrentVersion())->orderBy('rank')->get();
     }

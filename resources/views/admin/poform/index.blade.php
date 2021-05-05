@@ -17,7 +17,7 @@
                             </div>
                         @endif
 
-                        <form name="poform" method="POST" id="poform">
+                        <form id="poform">
 
                         {{ csrf_field() }}
 
@@ -59,7 +59,7 @@
                             @endforelse
                         </div>
                         <div class="d-flex flex-row justify-content-end">
-                            <div><input class="btn btn-primary" type="submit" value="Sauvegarder"></div>
+                            <div><button class="btn btn-success save-data">Sauvegarder</button></div>
                         </div>
                         </form>
 
@@ -80,6 +80,22 @@
             }
 
             createSortable(document.getElementById('categories-container'), 'foo');
+
+            $(".save-data").click(function(event){
+                event.preventDefault();
+
+                window.jQuery.ajax({
+                    //url: "poform",
+                    type:"POST",
+                    data: $('#poform').serialize(),
+                    success:function(response){
+                        console.log(response);
+                        if(response) {
+                            $('.success').text(response.success);
+                        }
+                    },
+                });
+            });
         });
 
         function createSortable(element, groupName)
@@ -135,6 +151,5 @@
                 '</tr>');
             categoryItemIndex++;
         }
-
     </script>
 @endsection

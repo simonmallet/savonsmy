@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Domain\BO\POFormBO;
 use App\Domain\DAO\CategoryDAO;
 use App\Domain\DAO\CategoryItemDAO;
 use App\Domain\DAO\POFormDAO;
 use App\Domain\DAO\VersionDAO;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\POFormUpdateRequest;
 use Illuminate\Http\Request;
 
 class POFormUpdateController extends Controller
@@ -23,12 +25,16 @@ class POFormUpdateController extends Controller
     /** @var CategoryItemDAO */
     private $categoryItemDAO;
 
-    public function __construct(POFormDAO $POFormDAO, VersionDAO $versionDAO, CategoryDAO $categoryDAO, CategoryItemDAO $categoryItemDAO)
+    /** @var POFormBO */
+    private $poFormBO;
+
+    public function __construct(POFormDAO $POFormDAO, VersionDAO $versionDAO, CategoryDAO $categoryDAO, CategoryItemDAO $categoryItemDAO, POFormBO $poFormBO)
     {
         $this->POFormDAO = $POFormDAO;
         $this->versionDAO = $versionDAO;
         $this->categoryDAO = $categoryDAO;
         $this->categoryItemDAO = $categoryItemDAO;
+        $this->poFormBO = $poFormBO;
     }
 
     /**
@@ -45,9 +51,11 @@ class POFormUpdateController extends Controller
             ->with('nextAvailableCategoryItemId', $this->categoryItemDAO->getNextAvailableCategoryItemId());
     }
 
-    public function submit(Request $request)
+    /** @todo: faire les validateurs */
+    public function submit(POFormUpdateRequest $request)
     {
-        error_log(print_r($request->all()));
+        $this->poFormBO->updatePOForm($request->all());
+
         return view('admin.poform.index')
             ->with('categories', $this->POFormDAO->getCurrentPOForm())
             ->with('currentVersion', $this->versionDAO->getCurrentVersion())
