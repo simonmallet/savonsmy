@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Domain\BO\POFormBO;
+use App\Domain\Config\OperationStatus;
 use App\Domain\DAO\CategoryDAO;
 use App\Domain\DAO\CategoryItemDAO;
 use App\Domain\DAO\POFormDAO;
@@ -56,10 +57,6 @@ class POFormUpdateController extends Controller
     {
         $this->poFormBO->updatePOForm($request->all());
 
-        return view('admin.poform.index')
-            ->with('categories', $this->POFormDAO->getCurrentPOForm())
-            ->with('currentVersion', $this->versionDAO->getCurrentVersion())
-            ->with('nextAvailableCategoryId', $this->categoryDAO->getNextAvailableCategoryId())
-            ->with('nextAvailableCategoryItemId', $this->categoryItemDAO->getNextAvailableCategoryItemId());
+        return response()->json(['status' => OperationStatus::STATUS_OK]);
     }
 }

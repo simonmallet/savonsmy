@@ -19,7 +19,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Sortable.js -->
-    <script src="/js/Sortable.min.js"></script>
+    <script src="/js/Sortable.min.js" defer></script>
+
+    <!-- Jquery toast -->
+    <script src="/js/jquery.toast.min.js" defer></script>
+    <link href="{{ asset('css/jquery.toast.min.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
