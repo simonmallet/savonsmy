@@ -39,7 +39,7 @@
                                         <td>{{ $item['name'] }}</td>
                                         <td>{{ $item['description'] }}</td>
                                         @if (isset($item['enabled']) && $item['enabled'])
-                                            <td><input type="text" id="variant_qty_{{ $item['id'] }}" name="variant_qty_{{ $item['id'] }}" placeholder="0" onkeyup="updateItemPrice({{ $item['id'] }})"></td>
+                                            <td><input type="number" min="0" id="variant_qty_{{ $item['id'] }}" name="variant_qty_{{ $item['id'] }}" placeholder="0" onkeyup="updateItemPrice({{ $item['id'] }})" onchange="updateItemPrice({{ $item['id'] }})"></td>
                                             <td>x @displayAmount($category['price'] * (100 - $user['discount_from_retail_price']) / 100) <input type="hidden" id="variant_user_price_{{ $item['id'] }}" value="@displayAmount($category['price'] * (100 - $user['discount_from_retail_price']) / 100)"></td>
                                             <td><span id="variant_total_{{ $item['id'] }}">0,00 $ CA</span></td>
                                         @else
@@ -101,6 +101,7 @@
             let variantPrice = $('#variant_user_price_' + variantId).val();
 
             let totalForItem = qty * variantPrice;
+            if (totalForItem < 0) return;
             $('#variant_total_' + variantId).text(formatter.format(totalForItem));
 
             updateSubTotal(variantId, totalForItem);
