@@ -8,7 +8,7 @@
                     <div class="card-header">
 
                         <div class="d-grid d-md-flex justify-content-md-between">
-                            <div class="align-self-center lead">{{ __('lang.purchase_order_add_main_title') }}</div>
+                            <div class="align-self-center lead">{{ __('lang.purchase_order_add_main_title') }} (Dernière mise à jour: {{ $currentVersionDate }})</div>
                         </div>
                     </div>
 
@@ -25,43 +25,52 @@
 
                         <div class="table-responsive">
                         <table class="table table-striped table-hover">
-                            @foreach($items as $item)
+                            @forelse($categories as $category)
                                 <thead class="table-secondary">
                                     <tr>
-                                        <th scope="col">{{ $item['name'] }} ({{ $item['price'] }} $)</th>
+                                        <th scope="col">{{ $category['name'] }} ({{ $category['price'] }} $)</th>
                                         <th scope="col">Description</th>
-                                        <th scope="col">Particularites</th>
                                         <th scope="col" colspan="2">Quantite</th>
                                         <th scope="col">&nbsp;</th>
                                     </tr>
                                 </thead>
-                                @foreach($item['variants'] as $variant)
+                                @forelse($category->items as $item)
                                     <tr>
-                                        <td>{{ $variant['name'] }}</td>
-                                        <td>{{ $variant['description'] }}</td>
-                                        <td>
-                                            @if (isset($variant['flags']['quality_essential_oils']) && $variant['flags']['quality_essential_oils'])
-                                                <div class="custom-icon-essential-oils"></div>
-                                            @endif
-                                            @if (isset($variant['flags']['no_perfume_no_oils']) && $variant['flags']['no_perfume_no_oils'])
-                                                <div class="custom-icon-no-perfume"></div>
-                                            @endif
-                                        </td>
-                                        @if (isset($variant['availability']) && $variant['availability'])
-                                            <td><input type="text" id="variant_qty_{{ $variant['id'] }}" name="variant_qty_{{ $variant['id'] }}" placeholder="0" onkeyup="testAlert({{ $variant['id'] }})"></td>
-                                            <td>x @displayAmount($item['price'] * (100 - $user['discount_from_retail_price']) / 100) <input type="hidden" id="variant_user_price_{{ $variant['id'] }}" value="{{ $item['price'] * (100 - $user['discount_from_retail_price']) / 100 }}"></td>
-                                            <td><span id="variant_total_{{ $variant['id'] }}">0,00 $ CA</span></td>
+                                        <td>{{ $item['name'] }}</td>
+                                        <td>{{ $item['description'] }}</td>
+                                        @if (isset($item['enabled']) && $item['enabled'])
+                                            <td><input type="text" id="variant_qty_{{ $item['id'] }}" name="variant_qty_{{ $item['id'] }}" placeholder="0" onkeyup="updateItemPrice({{ $item['id'] }})"></td>
+                                            <td>x @displayAmount($category['price'] * (100 - $user['discount_from_retail_price']) / 100) <input type="hidden" id="variant_user_price_{{ $item['id'] }}" value="@displayAmount($category['price'] * (100 - $user['discount_from_retail_price']) / 100)"></td>
+                                            <td><span id="variant_total_{{ $item['id'] }}">0,00 $ CA</span></td>
                                         @else
                                             <td>-</td>
                                             <td>N/D</td>
                                             <td>-</td>
                                         @endif
                                     </tr>
-                                @endforeach
-                            @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="5">Aucun variant pour cette categorie</td>
+                                    </tr>
+                                @endforelse
+                            @empty
+                                <tr><td>Aucun element trouve</td></tr>
+                            @endforelse
                         </table>
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <div>Sous total</div><div style="width: 120px; text-align: right;"><span id="sub-total">0.00 $ CA</span></div>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <div>TPS</div><div style="width: 120px; text-align: right;"><span id="tps">0.00 $ CA</span></div>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <div>TVQ</div><div style="width: 120px; text-align: right;"><span id="tvq">0.00 $ CA</span></div>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <div class="font-weight-bold">Grand Total</div><div class="font-weight-bold" style="width: 120px; text-align: right;"><span id="grand-total">0.00 $ CA</span></div>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
                             <input class="btn btn-primary mr-2" type="submit" value="{{ __('lang.generic_send_button') }}">
                             <a class="btn btn-secondary" href="{{ route('purchase_orders.index') }}" role="button">{{ __('lang.generic_cancel_button') }}</a>
                         </div>
@@ -75,21 +84,43 @@
 
 @section('js_custom')
     <script>
-        function testAlert(variantId)
+        let subTotalItems = [];
+
+        let formatter = new Intl.NumberFormat('fr-CA', {
+            style: 'currency',
+            currency: 'CAD',
+
+            // These options are needed to round to whole numbers if that's what you want.
+            minimumFractionDigits: 2, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+            maximumFractionDigits: 2, // (causes 2500.99 to be printed as $2,501)
+        });
+
+        function updateItemPrice(variantId)
         {
             let qty = $('#variant_qty_' + variantId).val();
             let variantPrice = $('#variant_user_price_' + variantId).val();
 
-            let formatter = new Intl.NumberFormat('fr-CA', {
-                style: 'currency',
-                currency: 'CAD',
+            let totalForItem = qty * variantPrice;
+            $('#variant_total_' + variantId).text(formatter.format(totalForItem));
 
-                // These options are needed to round to whole numbers if that's what you want.
-                //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-                //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+            updateSubTotal(variantId, totalForItem);
+        }
+
+        function updateSubTotal(variantId, total)
+        {
+            let subTotal = 0;
+            subTotalItems[variantId] = total;
+
+            subTotalItems.forEach((itemTotal) => {
+                subTotal += itemTotal;
             });
 
-            $('#variant_total_' + variantId).text(formatter.format(qty * variantPrice));
+            let tps = subTotal * 0.05;
+            let tvq = subTotal * 0.09975;
+            $('#sub-total').text(formatter.format(subTotal));
+            $('#tps').text(formatter.format(tps))
+            $('#tvq').text(formatter.format(tvq))
+            $('#grand-total').text(formatter.format(subTotal + tps + tvq))
         }
     </script>
 @endsection

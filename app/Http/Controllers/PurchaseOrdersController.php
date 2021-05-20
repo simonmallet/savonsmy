@@ -3,19 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Constants\OrderStatus;
+use App\Domain\DAO\POFormDAO;
+use App\Domain\DAO\VersionDAO;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class PurchaseOrdersController extends Controller
 {
+    /** @var POFormDAO */
+    private $poFormDAO;
+
+    /** @var VersionDAO */
+    private $versionDAO;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(POFormDAO $poFormDAO, VersionDAO $versionDAO)
     {
-
+        $this->poFormDAO = $poFormDAO;
+        $this->versionDAO = $versionDAO;
     }
 
     /**
@@ -131,7 +140,11 @@ class PurchaseOrdersController extends Controller
                 ],
             ],
         ];
-        return view('purchase_orders.add')->with('items', $items)->with('user', ['name' => 'Simon Mallet', 'discount_from_retail_price' => 30]);
+
+        return view('purchase_orders.add')
+            ->with('categories', $this->poFormDAO->getCurrentPOForm())
+            ->with('currentVersionDate', $this->versionDAO->getCurrentVersionDate()->format('Y-m-d'))
+            ->with('user', ['name' => 'Simon Mallet', 'discount_from_retail_price' => 30]);
     }
 
     public function addSubmit(Request $request)

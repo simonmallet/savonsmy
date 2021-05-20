@@ -3,12 +3,18 @@
 namespace App\Domain\DAO;
 
 use App\Models\Version;
+use Carbon\Carbon;
 
 class VersionDAO
 {
-    public function getCurrentVersion(): int
+    public function getCurrentVersionId(): int
     {
         return Version::max('id');
+    }
+
+    public function getCurrentVersionDate(): Carbon
+    {
+        return Carbon::parse(Version::max('created_at'));
     }
 
     public function bumpVersionNumber(): int

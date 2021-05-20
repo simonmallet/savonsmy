@@ -47,7 +47,7 @@ class POFormUpdateController extends Controller
     {
         return view('admin.poform.index')
             ->with('categories', $this->POFormDAO->getCurrentPOForm())
-            ->with('currentVersion', $this->versionDAO->getCurrentVersion())
+            ->with('currentVersion', $this->versionDAO->getCurrentVersionId())
             ->with('nextAvailableCategoryId', $this->categoryDAO->getNextAvailableCategoryId())
             ->with('nextAvailableCategoryItemId', $this->categoryItemDAO->getNextAvailableCategoryItemId());
     }
