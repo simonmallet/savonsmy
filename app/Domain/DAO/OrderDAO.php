@@ -24,4 +24,9 @@ class OrderDAO
             'sent_at' => $orderDTO->getSentAt(),
         ]);
     }
+
+    public function fetchList(int $clientId, $orderByDateDirection = 'DESC')
+    {
+        return Order::where('client_id', $clientId)->orderBy('created_at', $orderByDateDirection)->get();
+    }
 }

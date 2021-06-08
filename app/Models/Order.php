@@ -9,11 +9,6 @@ class Order extends Model
 {
     use SoftDeletes;
 
-    const STATUS_DRAFT = 'draft';
-    const STATUS_NOT_TREATED = 'not-treated';
-    const STATUS_IN_PROGRESS = 'in-progress';
-    const STATUS_COMPLETED = 'completed';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -29,6 +24,15 @@ class Order extends Model
 
     public function items()
     {
-        return $this->hasMany('App\Models\OrderItem', 'category_id', 'id');
+        return $this->hasMany('App\Models\OrderItem', 'order_id', 'id');
+    }
+
+    public function getTotalItemsWithQuantitiesAttribute()
+    {
+        $total = 0;
+        foreach ($this->items as $item) {
+            $total += $item->quantity;
+        }
+        return $total;
     }
 }

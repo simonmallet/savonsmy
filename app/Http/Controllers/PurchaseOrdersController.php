@@ -8,7 +8,6 @@ use App\Domain\DAO\POFormDAO;
 use App\Domain\DAO\VersionDAO;
 use App\Domain\DTO\OrderDTO;
 use App\Domain\Helpers\ClientHelper;
-use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,7 +64,8 @@ class PurchaseOrdersController extends Controller
                 'updated_at' => '2021-04-12 17:15',
             ],
         ];
-        return view('purchase_orders.index')->with('historicalPurchaseOrders', $historicalPurchaseOrders);
+
+        return view('purchase_orders.index')->with('historicalPurchaseOrders', $this->orderBO->fetchLatestOrdersForClient(Auth::user()->client[0]));
     }
 
     public function addIndex()
@@ -78,7 +78,7 @@ class PurchaseOrdersController extends Controller
 
     public function addSubmit(Request $request)
     {
-        $order = new OrderDTO($this->versionDAO->getCurrentVersionId(), ClientHelper::getClientId(), 'abc', Order::STATUS_NOT_TREATED, Carbon::now());
+        $order = new OrderDTO($this->versionDAO->getCurrentVersionId(), ClientHelper::getClientId(), 'abc', OrderStatus::NOT_TREATED, Carbon::now());
         $this->orderBO->create($order, $request->all());
 
         /** @todo: Faire une methode helper pour les messages */

@@ -6,6 +6,8 @@ use App\Domain\DAO\OrderDAO;
 use App\Domain\DAO\OrderItemDAO;
 use App\Domain\DTO\OrderDTO;
 use App\Domain\DTO\OrderItemDTO;
+use App\Models\Client;
+use App\Models\User;
 
 class OrderBO
 {
@@ -34,5 +36,10 @@ class OrderBO
         }
 
         $this->orderItemDAO->create($orderItems);
+    }
+
+    public function fetchLatestOrdersForClient(Client $client)
+    {
+        return $this->orderDAO->fetchList($client->id);
     }
 }

@@ -48,6 +48,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany|Client[]
+     */
     public function client()
     {
         return $this->belongsToMany('App\Models\Client', 'user_clients')->using(UserClient::class);

@@ -30,15 +30,15 @@
                                     <th scope="col" class="text-center">Action</th>
                                 </tr>
                                 </thead>
-                                @forelse($historicalPurchaseOrders as $item)
+                                @forelse($historicalPurchaseOrders as $order)
                                     <tr>
-                                        <td>{{ $item['id'] }}</td>
-                                        <td>{{ $item['amount_items'] }}</td>
-                                        <td>{{ __('lang.order_status_'.$item['status']) }}</td>
-                                        <td>{{ $item['created_at'] }}</td>
-                                        <td>{{ $item['updated_at'] }}</td>
+                                        <td>{{ $order->id }}</td>
+                                        <td>{{ $order->totalItemsWithQuantities }}</td>
+                                        <td>{{ __('lang.order_status_'.$order->status) }}</td>
+                                        <td>{{ $order->created_at }}</td>
+                                        <td>{{ $order->updated_at }}</td>
                                         <td class="text-center">
-                                            @switch($item['status'])
+                                            @switch($order->status)
                                                 @case(\App\Constants\OrderStatus::NOT_TREATED)
                                                     <button class="btn btn-primary">Modifier</button>
                                                     @break
@@ -49,7 +49,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4">Aucune commande est enregistrée dans le système</td>
+                                        <td colspan="6">Aucune commande est enregistrée dans le système</td>
                                     </tr>
                                 @endforelse
                             </table>
