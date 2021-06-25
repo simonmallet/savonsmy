@@ -19,4 +19,9 @@ class POFormDAO
     {
         return Categorie::where('version_id', $this->versionDAO->getCurrentVersionId())->orderBy('rank')->get();
     }
+
+    public function getPOFormFromVersion(int $version): Collection
+    {
+        return Categorie::where('version_id', $version)->orderBy('rank')->get();
+    }
 }

@@ -16,6 +16,7 @@ return [
     'navigation_purchase_order_title' => 'Bons de commandes',
     'purchase_order_add_new_button' => 'Créer un bon de commande',
     'purchase_order_add_main_title' => 'Envoyer un bon de commande',
+    'purchase_order_update_main_title' => 'Modifier le bon de commande # :orderId',
 
     // Variables
     'validation_error_title' => 'Oops! Une erreur est survenue!',

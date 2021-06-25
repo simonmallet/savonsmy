@@ -24,18 +24,29 @@ class OrderBO
      * @param OrderDTO $orderDTO
      * @param array $orderItemDTO
      */
-    public function create(OrderDTO $orderDTO, array $orderItemDTO)
+    public function create(OrderDTO $orderDTO, array $orderItemDTO): void
     {
         $order = $this->orderDAO->create($orderDTO);
 
         $orderItems = [];
         foreach ($orderItemDTO as $categoryItemId => $quantity) {
             if (is_numeric($categoryItemId) && $quantity && $quantity > 0) {
-                $orderItems[] = new OrderItemDTO($order->id, $categoryItemId, $quantity ?? 0);
+                $orderItems[] = new OrderItemDTO($order->id, $categoryItemId, $quantity);
             }
         }
 
         $this->orderItemDAO->create($orderItems);
+    }
+
+    public function update(OrderDTO $order, array $orderItemDTO): void
+    {
+        foreach ($orderItemDTO as $categoryItemId => $quantity) {
+            if (is_numeric($categoryItemId) && $quantity && $quantity > 0) {
+                $this->orderItemDAO->update(new OrderItemDTO($order->getOrderId(), (int) $categoryItemId, $quantity));
+            } else {
+                $this->orderItemDAO->delete($order->getOrderId(), (int) $categoryItemId);
+            }
+        }
     }
 
     public function fetchLatestOrdersForClient(Client $client)

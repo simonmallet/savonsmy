@@ -40,7 +40,8 @@
                                         <td class="text-center">
                                             @switch($order->status)
                                                 @case(\App\Constants\OrderStatus::NOT_TREATED)
-                                                    <button class="btn btn-primary">Modifier</button>
+                                                    <a class="btn btn-primary" href="{{ route('purchase_orders.update.index', $order->id) }}" role="button">Modifier</a>
+                                                    <button class="btn btn-danger">Supprimer</button>
                                                     @break
                                                 @default
                                                     <button class="btn btn-primary">Voir</button>

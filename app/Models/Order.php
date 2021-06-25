@@ -22,6 +22,15 @@ class Order extends Model
         'sent_at',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'sent_at' => 'datetime',
+    ];
+
     public function items()
     {
         return $this->hasMany('App\Models\OrderItem', 'order_id', 'id');

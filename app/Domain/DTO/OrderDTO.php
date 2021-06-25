@@ -11,14 +11,21 @@ class OrderDTO
     private string $externalUid;
     private string $status;
     private Carbon $sentAt;
+    private int $orderId;
 
-    public function __construct(int $versionId, int $clientId, string $externalUid, string $status, Carbon $sent_at)
+    public function __construct(int $versionId, int $clientId, string $externalUid, string $status, Carbon $sent_at, int $orderId = 0)
     {
+        $this->orderId = $orderId;
         $this->versionId = $versionId;
         $this->clientId = $clientId;
         $this->externalUid = $externalUid;
         $this->status = $status;
         $this->sentAt = $sent_at;
+    }
+
+    public function getOrderId(): int
+    {
+        return $this->orderId;
     }
 
     /**
