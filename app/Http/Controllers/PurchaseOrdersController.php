@@ -112,4 +112,24 @@ class PurchaseOrdersController extends Controller
 
         return redirect()->route('purchase_orders.index');
     }
+
+    public function deleteSubmit($orderId)
+    {
+        try {
+            $order = $this->orderDAO->fetchInfo(ClientHelper::getClientId(), $orderId);
+        } catch (\Exception $e) {
+            Session::flash('message', "Oops! La commande #{$orderId} n'a pu être retrouvée");
+            Session::flash('alert-class', 'alert-danger');
+
+            return redirect()->route('purchase_orders.index');
+        }
+
+        $this->orderBO->delete($order);
+
+        /** @todo: Faire une methode helper pour les messages */
+        Session::flash('message', 'Bon de commande supprimé avec succès!');
+        Session::flash('alert-class', 'alert-success');
+
+        return redirect()->route('purchase_orders.index');
+    }
 }

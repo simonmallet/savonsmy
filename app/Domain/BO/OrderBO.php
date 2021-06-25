@@ -7,7 +7,6 @@ use App\Domain\DAO\OrderItemDAO;
 use App\Domain\DTO\OrderDTO;
 use App\Domain\DTO\OrderItemDTO;
 use App\Models\Client;
-use App\Models\User;
 
 class OrderBO
 {
@@ -47,6 +46,11 @@ class OrderBO
                 $this->orderItemDAO->delete($order->getOrderId(), (int) $categoryItemId);
             }
         }
+    }
+
+    public function delete(OrderDTO $order)
+    {
+        $this->orderDAO->delete($order);
     }
 
     public function fetchLatestOrdersForClient(Client $client)

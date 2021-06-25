@@ -41,7 +41,12 @@
                                             @switch($order->status)
                                                 @case(\App\Constants\OrderStatus::NOT_TREATED)
                                                     <a class="btn btn-primary" href="{{ route('purchase_orders.update.index', $order->id) }}" role="button">Modifier</a>
-                                                    <button class="btn btn-danger">Supprimer</button>
+                                                    <form method="POST" style="display: inline-block;" action="{{ route('purchase_orders.delete.submit', $order->id) }}">
+                                                        {{ csrf_field() }}
+                                                        {{ method_field('DELETE') }}
+
+                                                        <input type="submit" class="btn btn-danger delete-form" value="Supprimer">
+                                                    </form>
                                                     @break
                                                 @default
                                                     <button class="btn btn-primary">Voir</button>
@@ -61,4 +66,18 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js_custom')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            $('.delete-form').click(function(e){
+                e.preventDefault() // Don't post the form, unless confirmed
+                if (confirm('Êtes-vous certain de vouloir supprimer ce bon de commande?')) {
+                    // Post the form
+                    $(e.target).closest('form').submit() // Post the surrounding form
+                }
+            });
+        });
+    </script>
 @endsection

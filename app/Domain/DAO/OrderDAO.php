@@ -24,6 +24,11 @@ class OrderDAO
         ]);
     }
 
+    public function delete(OrderDTO $order)
+    {
+        Order::where('id', $order->getOrderId())->delete();
+    }
+
     public function fetchList(int $clientId, $orderByDateDirection = 'DESC')
     {
         return Order::where('client_id', $clientId)->orderBy('created_at', $orderByDateDirection)->get();
