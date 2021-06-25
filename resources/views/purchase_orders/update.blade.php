@@ -118,7 +118,7 @@
             let variantPrice = $('#variant_user_price_' + variantId).val();
 
             let totalForItem = qty * variantPrice;
-            if (totalForItem <= 0) return;
+            if (totalForItem < 0) return;
             $('#variant_total_' + variantId).text(formatter.format(totalForItem));
 
             updateSubTotal(variantId, totalForItem);
