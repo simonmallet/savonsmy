@@ -3,10 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Constants\OrderStatus;
+use App\Domain\BO\OrderBO;
 use App\Http\Controllers\Controller;
 
 class AdminDashboardController extends Controller
 {
+    private OrderBO $orderBO;
+
+    public function __construct(OrderBO $orderBO)
+    {
+        $this->orderBO = $orderBO;
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -14,33 +22,6 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
-        $historicalPurchaseOrders = [
-            [
-                'id' => '3928172',
-                'client_name' => 'Jean Coutu Beauharnois',
-                'amount_items' => 6,
-                'status' => OrderStatus::NOT_TREATED,
-                'created_at' => '2021-04-17 03:00',
-                'updated_at' => '2021-04-17 03:00',
-            ],
-            [
-                'id' => '2910002',
-                'client_name' => 'Jean Coutu Beauharnois',
-                'amount_items' => 14,
-                'status' => OrderStatus::IN_PROGRESS,
-                'created_at' => '2021-04-14 08:23',
-                'updated_at' => '2021-04-15 16:01',
-            ],
-            [
-                'id' => '8291827',
-                'client_name' => 'Jean Coutu Beauharnois',
-                'amount_items' => 3,
-                'status' => OrderStatus::COMPLETED,
-                'created_at' => '2021-04-11 12:46',
-                'updated_at' => '2021-04-12 17:15',
-            ],
-        ];
-
         $users = [
             [
                 'id' => 1,
@@ -67,6 +48,7 @@ class AdminDashboardController extends Controller
                 'last_logon' => '2021-04-15 00:00:00',
             ],
         ];
-        return view('admin.dashboard')->with('users', $users)->with('historicalPurchaseOrders', $historicalPurchaseOrders);
+
+        return view('admin.dashboard')->with('users', $users)->with('purchaseOrders', $this->orderBO->fetchLatestOrdersFromAllClients());
     }
 }

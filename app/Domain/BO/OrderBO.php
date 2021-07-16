@@ -2,6 +2,8 @@
 
 namespace App\Domain\BO;
 
+use App\Constants\OrderStatus;
+use App\Domain\DAO\ClientDAO;
 use App\Domain\DAO\OrderDAO;
 use App\Domain\DAO\OrderItemDAO;
 use App\Domain\DTO\OrderDTO;
@@ -12,11 +14,13 @@ class OrderBO
 {
     private OrderDAO $orderDAO;
     private OrderItemDAO $orderItemDAO;
+    private ClientDAO $clientDAO;
 
-    public function __construct(OrderDAO $orderDAO, OrderItemDAO $orderItemDAO)
+    public function __construct(OrderDAO $orderDAO, OrderItemDAO $orderItemDAO, ClientDAO $clientDAO)
     {
         $this->orderDAO = $orderDAO;
         $this->orderItemDAO = $orderItemDAO;
+        $this->clientDAO = $clientDAO;
     }
 
     /**
@@ -55,6 +59,11 @@ class OrderBO
 
     public function fetchLatestOrdersForClient(Client $client)
     {
-        return $this->orderDAO->fetchList($client->id);
+        return $this->orderDAO->fetchList([$client->id]);
+    }
+
+    public function fetchLatestOrdersFromAllClients(int $limit = 0, $statusTypes = [OrderStatus::NOT_TREATED, OrderStatus::IN_PROGRESS])
+    {
+        return $this->orderDAO->fetchList($this->clientDAO->fetchList()->pluck('id')->toArray(), $statusTypes, $limit);
     }
 }

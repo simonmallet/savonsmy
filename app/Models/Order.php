@@ -36,6 +36,11 @@ class Order extends Model
         return $this->hasMany('App\Models\OrderItem', 'order_id', 'id');
     }
 
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
     public function getTotalItemsWithQuantitiesAttribute()
     {
         $total = 0;

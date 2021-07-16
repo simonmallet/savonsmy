@@ -32,11 +32,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @forelse($historicalPurchaseOrders as $item)
+                                @forelse($purchaseOrders as $item)
                                     <tr>
                                         <td>{{ $item['id'] }}</td>
-                                        <td>{{ $item['client_name'] }}</td>
-                                        <td>{{ $item['amount_items'] }}</td>
+                                        <td>{{ $item->client->name}}</td>
+                                        <td>{{ $item->totalItemsWithQuantities }}</td>
                                         <td><a href="#">{{ __('lang.order_status_'.$item['status']) }}</a></td>
                                         <td>{{ $item['created_at'] }}</td>
                                         <td>{{ $item['updated_at'] }}</td>

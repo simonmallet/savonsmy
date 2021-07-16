@@ -29,9 +29,19 @@ class OrderDAO
         Order::where('id', $order->getOrderId())->delete();
     }
 
-    public function fetchList(int $clientId, $orderByDateDirection = 'DESC')
+    public function fetchList(array $clientId, array $statusTypes = [], $maxResults = 0, string $orderByDateDirection = 'DESC')
     {
-        return Order::where('client_id', $clientId)->orderBy('created_at', $orderByDateDirection)->get();
+        $query = Order::whereIn('client_id', $clientId)->orderBy('created_at', $orderByDateDirection);
+
+        if (count($statusTypes) > 0) {
+            $query->whereIn('status', $statusTypes);
+        }
+
+        if ($maxResults > 0) {
+            $query->limit($maxResults);
+        }
+
+        return $query->get();
     }
 
     public function fetchInfo(int $clientId, int $orderId): OrderDTO
