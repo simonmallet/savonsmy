@@ -11,4 +11,9 @@ class ClientDAO
     {
         return Client::where('active', $active)->get();
     }
+
+    public function fetchInfo(int $clientId): Client
+    {
+        return Client::where('id', $clientId)->first();
+    }
 }

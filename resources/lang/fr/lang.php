@@ -13,7 +13,10 @@ return [
     'generic_send_button' => 'Envoyer',
     'generic_cancel_button' => 'Annuler',
     'welcome_message' => 'Bonjour :user! Bienvenue chez Savons My!',
+
     'navigation_purchase_order_title' => 'Bons de commandes',
+    'navigation_admin_view_title' => 'Commande # :orderId',
+
     'purchase_order_add_new_button' => 'Créer un bon de commande',
     'purchase_order_add_main_title' => 'Envoyer un bon de commande',
     'purchase_order_update_main_title' => 'Modifier le bon de commande # :orderId',

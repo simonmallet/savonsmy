@@ -54,4 +54,15 @@ class OrderDAO
 
         return new OrderDTO($order->version_id, $order->client_id, $order->external_uid, $order->status, $order->sent_at, $orderId);
     }
+
+    public function fetchInfoAdmin(int $orderId): OrderDTO
+    {
+        $order = Order::where('id', $orderId)->first();
+
+        if (!$order) {
+            throw new ModelNotFoundException('Order ' . $orderId . ' was not found');
+        }
+
+        return new OrderDTO($order->version_id, $order->client_id, $order->external_uid, $order->status, $order->sent_at, $orderId);
+    }
 }
