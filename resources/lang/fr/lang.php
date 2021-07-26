@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'navigation_dashboard_title' => 'Tableau de bord',
+    'page_title_admin/dashboard' => 'Tableau de bord',
     'email' => 'Adresse courriel',
-    'login_title' => 'Connexion',
+    'page_title_login' => 'Connexion',
     'login_button' => 'Se connecter',
     'password' => 'Mot de passe',
     'remember_me' => 'Se souvenir de moi',
@@ -15,7 +15,9 @@ return [
     'welcome_message' => 'Bonjour :user! Bienvenue chez Savons My!',
 
     'navigation_purchase_order_title' => 'Bons de commandes',
-    'navigation_admin_view_title' => 'Commande # :orderId',
+    'page_title_admin/orders/{orderId}' => 'Commande # :orderId',
+
+    'page_title_admin/poform' => 'Mise a jour du formulaire (v:currentVersion => v:nextVersion)',
 
     'purchase_order_add_new_button' => 'Créer un bon de commande',
     'purchase_order_add_main_title' => 'Envoyer un bon de commande',

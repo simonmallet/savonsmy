@@ -50,7 +50,7 @@
                         @role(\App\Models\User::ROLE_SUPER_ADMIN)
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link {{ (request()->routeIs('admin.dashboard')) ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">{{ __('lang.navigation_dashboard_title') }}</a>
+                                    <a class="nav-link {{ (request()->routeIs('admin.dashboard')) ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">{{ __('lang.page_title_admin/dashboard') }}</a>
                                 </li>
 
                                 <li class="nav-item">
@@ -120,7 +120,19 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header lead">{{ __('lang.page_title_'.request()->route()->uri, isset($page_title_arguments) ? $page_title_arguments : []) }}</div>
+
+                            <div class="card-body">
+                                @yield('content')
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
     @yield('js_custom')

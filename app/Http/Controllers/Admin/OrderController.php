@@ -59,7 +59,7 @@ class OrderController extends Controller
         });
 
         return view('admin.orders.view')
-            ->with('orderId', $orderId)
+            ->with('page_title_arguments', ['orderId' => $orderId])
             ->with('categories', $filteredCategories)
             ->with('order_items', $orderItems)
             ->with('client', $this->clientDAO->fetchInfo($order->getClientId()));
