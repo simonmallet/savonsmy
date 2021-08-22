@@ -16,6 +16,7 @@ return [
 
     'navigation_purchase_order_title' => 'Bons de commandes',
     'page_title_admin/orders/{orderId}' => 'Commande # :orderId',
+    'page_title_admin/orders/{orderId}/status' => 'Changer le status de la commande # :orderId',
 
     'page_title_admin/poform' => 'Mise a jour du formulaire (v:currentVersion => v:nextVersion)',
 
@@ -28,4 +29,5 @@ return [
     'order_status_' . \App\Constants\OrderStatus::NOT_TREATED => 'Non traité',
     'order_status_' . \App\Constants\OrderStatus::IN_PROGRESS => 'En traitement',
     'order_status_' . \App\Constants\OrderStatus::COMPLETED => 'Complété',
+    'order_status_' . \App\Constants\OrderStatus::CANCELLED => 'Annulée',
 ];

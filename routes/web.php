@@ -38,6 +38,8 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('poform', [\App\Http\Controllers\Admin\POFormUpdateController::class, 'index'])->name('admin.poform.index');
         Route::post('poform', [\App\Http\Controllers\Admin\POFormUpdateController::class, 'submit'])->name('admin.poform.submit');
         Route::get('orders/{orderId}', [\App\Http\Controllers\Admin\OrderController::class, 'index'])->name('admin.order.view.index');
+        Route::get('orders/{orderId}/status', [\App\Http\Controllers\Admin\OrderController::class, 'indexStatus'])->name('admin.order.view.status');
+        Route::put('orders/{orderId}/status', [\App\Http\Controllers\Admin\OrderController::class, 'statusSubmit'])->name('admin.order.view.statusSubmit');
     });
 });
 

@@ -24,6 +24,17 @@ class OrderDAO
         ]);
     }
 
+    public function updateStatus(OrderDTO $orderDTO, string $status)
+    {
+        $order = Order::where('id', $orderDTO->getOrderId())->first();
+        if ($order) {
+            $order->status = $status;
+            $order->save();
+        } else {
+            throw new ModelNotFoundException('Order #' . $orderDTO->getOrderId() . ' was not found and could not be updated');
+        }
+    }
+
     public function delete(OrderDTO $order)
     {
         Order::where('id', $order->getOrderId())->delete();

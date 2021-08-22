@@ -2,7 +2,7 @@
 
 @section('content')
     @if (session('status'))
-        <div class="alert alert-success" role="alert">
+        <div class="alert {{ session('alert-class', 'alert-success') }}" role="alert">
             {{ session('status') }}
         </div>
     @endif
@@ -30,7 +30,7 @@
                     <td>{{ $item['id'] }}</td>
                     <td>{{ $item->client->name}}</td>
                     <td>{{ $item->totalItemsWithQuantities }}</td>
-                    <td><a href="#">{{ __('lang.order_status_'.$item['status']) }}</a></td>
+                    <td><a href="{{ route('admin.order.view.status', $item['id']) }}">{{ __('lang.order_status_'.$item['status']) }}</a></td>
                     <td>{{ $item['created_at'] }}</td>
                     <td>{{ $item['updated_at'] }}</td>
                     <td class="text-center">
@@ -40,7 +40,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="4">Aucune commande est enregistrée dans le système</td>
+                    <td colspan="7">Aucune commande est enregistrée dans le système</td>
                 </tr>
             @endforelse
             </tbody>
