@@ -51,8 +51,18 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'company_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'name.required' => 'lang.register_validation_name_required',
+            'company_name.required' => 'lang.register_validation_company_name_required',
+            'email.required' => 'lang.register_validation_email_required',
+            'email.email' => 'lang.register_validation_email_email',
+            'email.unique' => 'lang.register_validation_email_unique',
+            'password.required' => 'lang.register_validation_pwd_required',
+            'password.min' => 'lang.register_validation_pwd_min',
+            'password.confirmed' => 'lang.register_validation_pwd_confirm',
         ]);
     }
 
@@ -66,6 +76,7 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'company_name' => $data['company_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

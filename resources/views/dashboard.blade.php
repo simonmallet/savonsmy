@@ -18,7 +18,7 @@
 
                         @cannot(\App\Models\User::PERMISSION_FILL_PURCHASE_ORDER)
                             <div>
-                                Votre compte n'a pas encore été activé par l'administrateur de ce site. Si le problème perdure, svp écrire à <a href="mailto:{{ config('contact.email') }}?subject=Activation compte partenaire">{{ config('contact.email') }}</a>
+                                Votre compte n'a pas encore été activé par l'administrateur de ce site. Si la situation perdure, svp écrire à <a href="mailto:{{ config('contact.email') }}?subject=Activation compte partenaire">{{ config('contact.email') }}</a>
                             </div>
                         @endcan
                     </div>
