@@ -27,8 +27,8 @@ return [
     'navigation_purchase_order_title' => 'Bons de commandes',
     'page_title_admin/orders/{orderId}' => 'Commande # :orderId',
     'page_title_admin/orders/{orderId}/status' => 'Changer le status de la commande # :orderId',
-
     'page_title_admin/poform' => 'Mise a jour du formulaire (v:currentVersion => v:nextVersion)',
+    'page_title_admin/user/{userId}/assign_client' => 'Assigner un utilisateur à un client',
 
     'purchase_order_add_new_button' => 'Créer un bon de commande',
     'purchase_order_add_main_title' => 'Envoyer un bon de commande',

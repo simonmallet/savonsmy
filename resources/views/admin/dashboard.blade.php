@@ -55,11 +55,12 @@
         <table class="table table-striped table-hover">
             <thead class="table-secondary">
             <tr>
-                <th scope="col">Nom</th>
-                <th scope="col">Client</th>
+                <th scope="col">Nom du responsable</th>
+                <th scope="col">Nom de la compagnie</th>
+                <th scope="col">Courriel</th>
+                <th scope="col">Client assigné</th>
                 <th scope="col" class="text-center">Courriel validé</th>
                 <th scope="col" class="text-center">Partenaire approuvé</th>
-                <th scope="col">Dernière connection</th>
                 <th scope="col" class="text-center">Action</th>
             </tr>
             </thead>
@@ -67,17 +68,21 @@
             @forelse($users as $user)
                 <tr>
                     <td>{{ $user['name'] }}</td>
-                    <td>{{ $user['client_name'] }}</td>
-                    <td class="text-center">{{ $user['email_verified'] ? 'Oui' : 'Non' }}</td>
+                    <td>{{ $user['company_name'] }}</td>
+                    <td>{{ $user['email'] }}</td>
+                    <td>{{ count($user->client) > 0 ? $user->client[0]->name : 'Aucun' }}</td>
+                    <td class="text-center">{{ $user['email_verified_at'] ? 'Oui' : 'Non' }}</td>
                     <td class="text-center">{{ $user['partner_approved'] ? 'Oui' : 'Non' }}</td>
-                    <td>{{ $user['last_logon'] }}</td>
                     <td class="text-center">
-                        @if($user['partner_approved'])
-                            <button class="btn btn-primary">Déapprouver</button>
+                        @if(count($user->client) === 0)
+                            <a class="btn btn-primary" role="button" href="{{ route('admin.user.assign_client.index', $user['id']) }}">Assigner</a>
                         @else
-                            <button class="btn btn-primary">Approuver</button>
+                            @if($user['partner_approved'])
+                                <a class="btn btn-primary" role="button" href="{{ route('admin.user.suspend.submit', $user['id']) }}">Suspendre</a>
+                            @else
+                                <a class="btn btn-primary" role="button" href="{{ route('admin.user.approve.submit', $user['id']) }}">Approuver</a>
+                            @endif
                         @endif
-                        <button class="btn btn-primary">Modifier</button>
                     </td>
                 </tr>
             @empty
