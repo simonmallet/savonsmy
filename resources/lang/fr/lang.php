@@ -22,17 +22,19 @@ return [
     'generic_cancel_button' => 'Annuler',
     'welcome_message' => 'Bonjour :user! Bienvenue chez Savons My!',
     'page_title_dashboard' => 'Bienvenue!',
+    'page_title_purchase-orders' => 'Bons de commandes',
+    'page_title_purchase-orders/add' => 'Envoyer un bon de commande (Dernière mise à jour: :currentVersionDate)',
+    'page_title_purchase-orders/update/{orderId}' => 'Modifier le bon de commande # :orderId',
 
     'navigation_dashboard_title' => 'Tableau de bord',
     'navigation_purchase_order_title' => 'Bons de commandes',
+    'purchase_order_lead' => 'Vos commandes',
     'page_title_admin/orders/{orderId}' => 'Commande # :orderId',
     'page_title_admin/orders/{orderId}/status' => 'Changer le status de la commande # :orderId',
     'page_title_admin/poform' => 'Mise a jour du formulaire (v:currentVersion => v:nextVersion)',
     'page_title_admin/user/{userId}/assign_client' => 'Assigner un utilisateur à un client',
 
     'purchase_order_add_new_button' => 'Créer un bon de commande',
-    'purchase_order_add_main_title' => 'Envoyer un bon de commande',
-    'purchase_order_update_main_title' => 'Modifier le bon de commande # :orderId',
 
     // Variables
     'validation_error_title' => 'Oops! Une erreur est survenue!',

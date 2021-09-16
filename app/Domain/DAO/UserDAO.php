@@ -25,12 +25,14 @@ class UserDAO
     public function approve(User $user)
     {
         $user->partner_approved = 1;
+        $user->assignRole(User::ROLE_PARTNER);
         $user->save();
     }
 
     public function suspend(User $user)
     {
         $user->partner_approved = 0;
+        $user->removeRole(User::ROLE_PARTNER);
         $user->save();
     }
 }

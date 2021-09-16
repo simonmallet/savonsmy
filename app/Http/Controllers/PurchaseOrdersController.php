@@ -59,7 +59,7 @@ class PurchaseOrdersController extends Controller
     {
         return view('purchase_orders.add')
             ->with('categories', $this->poFormDAO->getCurrentPOForm())
-            ->with('currentVersionDate', $this->versionDAO->getCurrentVersionDate()->format('Y-m-d'))
+            ->with('page_title_arguments', ['currentVersionDate' => $this->versionDAO->getCurrentVersionDate()->format('Y-m-d')])
             ->with('user', ['discount_from_retail_price' => Auth::user()->client[0]->discount_from_retail]);
     }
 
@@ -76,6 +76,7 @@ class PurchaseOrdersController extends Controller
 
         return view('purchase_orders.update')
             ->with('order_id', $orderId)
+            ->with('page_title_arguments', ['orderId' => $orderId])
             ->with('categories', $this->poFormDAO->getPOFormFromVersion($order->getVersionId()))
             ->with('order_items', $this->orderItemDAO->fetchList($orderId))
             ->with('user', ['discount_from_retail_price' => Auth::user()->client[0]->discount_from_retail]);

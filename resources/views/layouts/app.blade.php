@@ -124,7 +124,12 @@
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header lead">{{ __('lang.page_title_'.request()->route()->uri, isset($page_title_arguments) ? $page_title_arguments : []) }}</div>
+                            <div class="card-header lead">
+                                <div class="d-grid d-md-flex justify-content-md-between">
+                                    <div class="align-self-center lead">{{ __('lang.page_title_'.request()->route()->uri, isset($page_title_arguments) ? $page_title_arguments : []) }}</div>
+                                    @yield('headerButton')
+                                </div>
+                            </div>
 
                             <div class="card-body">
                                 @yield('content')
