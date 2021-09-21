@@ -66,6 +66,7 @@
             </thead>
             <tbody>
             @forelse($users as $user)
+                @if(!$user->hasRole(\App\Models\User::ROLE_SUPER_ADMIN))
                 <tr>
                     <td>{{ $user['name'] }}</td>
                     <td>{{ $user['company_name'] }}</td>
@@ -85,6 +86,7 @@
                         @endif
                     </td>
                 </tr>
+                @endif
             @empty
                 <tr>
                     <td colspan="4">Aucun utilisateur est enregistré dans le système</td>
