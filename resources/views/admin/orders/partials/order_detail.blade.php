@@ -45,11 +45,13 @@
                         return $categoryItem->id === $order_item->getCategoryItemId();
                     })->first();
                 @endphp
-                <tr>
-                    <td>{{ $category_item['name'] }}</td>
-                    <td>{{ $category_item['sku'] }}</td>
-                    <td>{{ $order_item->getQuantity()}}</td>
-                </tr>
+                @if($category_item)
+                    <tr>
+                        <td>{{ $category_item['name'] }}</td>
+                        <td>{{ $category_item['sku'] }}</td>
+                        <td>{{ $order_item->getQuantity()}}</td>
+                    </tr>
+                @endif
             @empty
                 <tr>
                     <td colspan="3">Aucun variant pour cette categorie</td>
