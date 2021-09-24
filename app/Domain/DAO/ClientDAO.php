@@ -7,9 +7,15 @@ use Illuminate\Support\Collection;
 
 class ClientDAO
 {
-    public function fetchList(int $active = 1): Collection
+    public function fetchList(?int $active = null): Collection
     {
-        return Client::where('active', $active)->get();
+        $query = Client::query();
+
+        if (!is_null($active)) {
+            $query->where('active', $active);
+        }
+
+        return $query->get();
     }
 
     public function fetchInfo(int $clientId): Client

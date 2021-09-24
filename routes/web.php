@@ -44,6 +44,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('user/{userId}/assign_client', [\App\Http\Controllers\Admin\UserController::class, 'assignClientSubmit'])->name('admin.user.assign_client.submit');
         Route::get('user/{userId}/approve', [\App\Http\Controllers\Admin\UserController::class, 'approveSubmit'])->name('admin.user.approve.submit');
         Route::get('user/{userId}/suspend', [\App\Http\Controllers\Admin\UserController::class, 'suspendSubmit'])->name('admin.user.suspend.submit');
+        Route::get('clients', [\App\Http\Controllers\Admin\ClientController::class, 'index'])->name('admin.clients.index');
+        Route::get('clients/new', [\App\Http\Controllers\Admin\ClientController::class, 'addIndex'])->name('admin.clients.add.index');
+        Route::post('clients/new', [\App\Http\Controllers\Admin\ClientController::class, 'addSubmit'])->name('admin.clients.add.submit');
     });
 });
 

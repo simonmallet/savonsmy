@@ -53,12 +53,12 @@
                                     <a class="nav-link {{ (request()->routeIs('admin.dashboard')) ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">{{ __('lang.page_title_admin/dashboard') }}</a>
                                 </li>
 
-                                <li class="nav-item">
+                                <!--<li class="nav-item">
                                     <a class="nav-link" href="#">Commandes</a>
-                                </li>
+                                </li>-->
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Clients</a>
+                                    <a class="nav-link {{ (request()->routeIs('admin.clients.index')) ? 'active' : '' }}" href="{{ route('admin.clients.index') }}">{{ __('lang.page_title_admin/clients') }}</a>
                                 </li>
 
                                 <li class="nav-item">
