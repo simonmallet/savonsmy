@@ -11,9 +11,11 @@ use App\Domain\DAO\VersionDAO;
 use App\Domain\DTO\OrderDTO;
 use App\Domain\DTO\OrderItemDTO;
 use App\Domain\Helpers\ClientHelper;
+use App\Mail\NewPurchaseOrder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class PurchaseOrdersController extends Controller
@@ -85,7 +87,8 @@ class PurchaseOrdersController extends Controller
     public function addSubmit(Request $request)
     {
         $order = new OrderDTO($this->versionDAO->getCurrentVersionId(), ClientHelper::getClientId(), 'abc', OrderStatus::NOT_TREATED, Carbon::now());
-        $this->orderBO->create($order, $request->all());
+        $orderCreated = $this->orderBO->create($order, $request->all());
+        Mail::to(config('contact.purchase_orders.new'))->send(new NewPurchaseOrder($orderCreated));
 
         /** @todo: Faire une methode helper pour les messages */
         Session::flash('message', 'Bon de commande envoyé avec succès!');

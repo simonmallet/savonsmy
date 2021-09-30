@@ -27,7 +27,7 @@ class OrderBO
      * @param OrderDTO $orderDTO
      * @param array $orderItemDTO
      */
-    public function create(OrderDTO $orderDTO, array $orderItemDTO): void
+    public function create(OrderDTO $orderDTO, array $orderItemDTO): OrderDTO
     {
         $order = $this->orderDAO->create($orderDTO);
 
@@ -39,6 +39,8 @@ class OrderBO
         }
 
         $this->orderItemDAO->create($orderItems);
+
+        return new OrderDTO($order->version_id, $order->client_id, $order->external_uid, $order->status, $order->sent_at, $order->id);
     }
 
     public function update(OrderDTO $order, array $orderItemDTO): void

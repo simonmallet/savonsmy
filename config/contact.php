@@ -1,5 +1,7 @@
 <?php
 
 return [
-    'email' => 'info@savonsmy.com'
+    'purchase_orders' => [
+        'new' => 'info@savonsmy.com',
+    ],
 ];
