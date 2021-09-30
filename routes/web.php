@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('orders/{orderId}', [\App\Http\Controllers\Admin\OrderController::class, 'index'])->name('admin.order.view.index');
         Route::get('orders/{orderId}/status', [\App\Http\Controllers\Admin\OrderController::class, 'indexStatus'])->name('admin.order.view.status');
         Route::put('orders/{orderId}/status', [\App\Http\Controllers\Admin\OrderController::class, 'statusSubmit'])->name('admin.order.view.statusSubmit');
+        Route::get('orders/{orderId}/download', [\App\Http\Controllers\Admin\OrderController::class, 'download'])->name('admin.order.download');
         Route::get('user/{userId}/assign_client', [\App\Http\Controllers\Admin\UserController::class, 'assignClientIndex'])->name('admin.user.assign_client.index');
         Route::post('user/{userId}/assign_client', [\App\Http\Controllers\Admin\UserController::class, 'assignClientSubmit'])->name('admin.user.assign_client.submit');
         Route::get('user/{userId}/approve', [\App\Http\Controllers\Admin\UserController::class, 'approveSubmit'])->name('admin.user.approve.submit');

@@ -35,7 +35,7 @@
                     <td>{{ $item['updated_at'] }}</td>
                     <td class="text-center">
                         <a class="btn btn-primary bi bi-eye" role="button" href="{{ route('admin.order.view.index', $item['id']) }}"></a>
-                        <button title="Télécharger" class="btn btn-primary bi bi-download"></button>
+                        <a class="btn btn-primary bi bi-download" role="button" href="{{ route('admin.order.download', $item['id']) }}"></a>
                     </td>
                 </tr>
             @empty

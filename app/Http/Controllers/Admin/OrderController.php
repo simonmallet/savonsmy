@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Domain\BO\OrderBO;
 use App\Domain\BO\OrderTransitionBO;
+use App\Domain\DAO\CategoryItemDAO;
 use App\Domain\DAO\ClientDAO;
 use App\Domain\DAO\OrderDAO;
 use App\Domain\DAO\OrderItemDAO;
@@ -21,8 +22,17 @@ class OrderController extends Controller
     private POFormDAO $poFormDAO;
     private OrderItemDAO $orderItemDAO;
     private OrderTransitionBO $orderTransitionBO;
+    private CategoryItemDAO $categoryItemDAO;
 
-    public function __construct(OrderBO $orderBO, OrderDAO $orderDAO, ClientDAO $clientDAO, POFormDAO $poFormDAO, OrderItemDAO $orderItemDAO, OrderTransitionBO $orderTransitionBO)
+    public function __construct(
+        OrderBO $orderBO,
+        OrderDAO $orderDAO,
+        ClientDAO $clientDAO,
+        POFormDAO $poFormDAO,
+        OrderItemDAO $orderItemDAO,
+        OrderTransitionBO $orderTransitionBO,
+        CategoryItemDAO $categoryItemDAO
+    )
     {
         $this->orderBO = $orderBO;
         $this->orderDAO = $orderDAO;
@@ -30,6 +40,7 @@ class OrderController extends Controller
         $this->poFormDAO = $poFormDAO;
         $this->orderItemDAO = $orderItemDAO;
         $this->orderTransitionBO = $orderTransitionBO;
+        $this->categoryItemDAO = $categoryItemDAO;
     }
 
     /**
@@ -124,5 +135,25 @@ class OrderController extends Controller
 
             return redirect()->route('admin.dashboard');
         }
+    }
+
+    public function download(int $orderId)
+    {
+        $order = $this->getOrder($orderId);
+
+        $orderItems = $this->orderItemDAO->fetchList($orderId);
+
+        $contents = "";
+
+        /** @var OrderItemDTO $item */
+        foreach ($orderItems as $item) {
+            $itemDetails = $this->categoryItemDAO->fetchInfo($item->getCategoryItemId());
+            $contents .= $itemDetails->name . ',' . $itemDetails->sku . ',' . $item->getQuantity() . PHP_EOL;
+        }
+
+        $filename = "savonsmy_po_{$order->getOrderId()}" . '.csv';
+        return response()->streamDownload(function () use ($contents) {
+            echo $contents;
+        }, $filename);
     }
 }

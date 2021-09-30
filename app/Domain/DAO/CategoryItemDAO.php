@@ -28,4 +28,9 @@ class CategoryItemDAO
 
         return $categoryItem;
     }
+
+    public function fetchInfo(int $categoryItemId): CategoryItem
+    {
+        return CategoryItem::query()->where('id', $categoryItemId)->first();
+    }
 }
