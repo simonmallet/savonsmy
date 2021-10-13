@@ -10038,3 +10038,7 @@ h3 {
 .input-price {
   width: 40px;
 }
+
+.input-category-name {
+  width: 250px;
+}

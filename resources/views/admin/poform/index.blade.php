@@ -19,8 +19,8 @@
             <table class="table table-striped table-hover">
                 <thead class="table-secondary">
                 <tr>
-                    <th scope="col" style="width: 285px;"><input type="text" class="input-header-form font-weight-bold" name="category[{{$category['id']}}][name]" value="{{$category['name']}}" placeholder="Nom de catégorie">
-                        (Prix <input type="text" class="input-header-form input-price font-weight-bold" name="category[{{$category['id']}}][price]" value="{{$category['price']}}" placeholder="0.00">)</th>
+                    <th scope="col" style="width: 350px;"><input type="text" class="input-header-form input-category-name font-weight-bold" name="category[{{$category['id']}}][name]" value="{{$category['name']}}" placeholder="Nom de catégorie">
+                        (Prix <input type="text" class="input-header-form input-price font-weight-bold" name="category[{{$category['id']}}][price]" value="{{\App\Domain\Helpers\FormattingHelper::formatPrice($category['price'])}}" placeholder="0.00">)</th>
                     <th colspan="4" scope="col">
                         <div class="d-flex flex-row justify-content-end">
                             <div><input class="btn-sm btn-primary" type="button" onclick="addVariant('category-tbody-{{$category['id']}}', {{$category['id']}})" value="Ajouter un variant"></div>
@@ -32,7 +32,7 @@
                 <tbody class="category-items" id="category-tbody-{{$category['id']}}">
                 @forelse($category->items as $item)
                     <tr>
-                        <td><input type="text" style="width: 285px;" class="input-header-form" name="category[{{$category['id']}}][items][{{$item['id']}}][name]" value="{{$item['name']}}" placeholder="Nom de variant"></td>
+                        <td><input type="text" style="width: 350px;" class="input-header-form input-category-name" name="category[{{$category['id']}}][items][{{$item['id']}}][name]" value="{{$item['name']}}" placeholder="Nom de variant"></td>
                         <td style="width: 450px;"><input type="text" style="width: 450px;" class="input-header-form" name="category[{{$category['id']}}][items][{{$item['id']}}][description]" value="{{$item['description']}}" placeholder="Description"></td>
                         <td>Sku: <input type="text" style="width: 40px;" class="input-header-form" name="category[{{$category['id']}}][items][{{$item['id']}}][sku]" value="{{$item['sku']}}" placeholder="0000"></td>
                         <td>Actif <input type="checkbox" name="category[{{$category['id']}}][items][{{$item['id']}}][enabled]" value="{{$item['enabled']}}" {{$item['enabled'] ? 'checked' : ''}}></td>

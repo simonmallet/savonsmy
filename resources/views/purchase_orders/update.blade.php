@@ -17,7 +17,7 @@
                     @forelse($categories as $category)
                         <thead class="table-secondary">
                         <tr>
-                            <th scope="col">{{ $category['name'] }} ({{ $category['price'] }} $)</th>
+                            <th scope="col" nowrap>{{ $category['name'] }} ({{ App\Domain\Helpers\FormattingHelper::formatPrice($category['price']) }} $)</th>
                             <th scope="col">Description</th>
                             <th scope="col" colspan="2">Quantite</th>
                             <th scope="col">&nbsp;</th>
@@ -38,12 +38,12 @@
                                                value="{{ $orderItem ? $orderItem->getQuantity() : 0 }}"
                                                onkeyup="updateItemPrice({{ $item['id'] }})"
                                                onchange="updateItemPrice({{ $item['id'] }})"></td>
-                                    <td>x @displayAmount($category['price'] * (100 -
+                                    <td nowrap>x @displayAmount($category['price'] * (100 -
                                         $user['discount_from_retail_price']) / 100) <input type="hidden"
                                                                                            id="variant_user_price_{{ $item['id'] }}"
                                                                                            value="@displayAmount($category['price'] * (100 - $user['discount_from_retail_price']) / 100)">
                                     </td>
-                                    <td><span id="variant_total_{{ $item['id'] }}">0,00 $ CA</span></td>
+                                    <td nowrap><span id="variant_total_{{ $item['id'] }}">0,00 $ CA</span></td>
                                 @else
                                     <td>-</td>
                                     <td>N/D</td>
