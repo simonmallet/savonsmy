@@ -34,7 +34,7 @@
         @forelse($categories as $category)
             <thead class="table-secondary">
             <tr>
-                <th scope="col">{{ $category['name'] }} ({{ $category['price'] }} $)</th>
+                <th scope="col">{{ $category['name'] }} ({{ App\Domain\Helpers\FormattingHelper::formatPrice($category['price']) }} $)</th>
                 <th scope="col">SKU</th>
                 <th scope="col" colspan="2">Quantite</th>
             </tr>
