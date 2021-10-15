@@ -38,7 +38,7 @@ class POFormBO
                     $newVersion,
                     $requestCategory['name'],
                     $requestCategory['price'],
-                    isset($requestCategory['enabled']) && $requestCategory['enabled'] ? 1 : 0,
+                    isset($requestCategory['enabled']) ? 1 : 0,
                     $categoryRank
                 )
             );
@@ -54,7 +54,7 @@ class POFormBO
                         $item['description'] ?? null,
                         $item['price'] ?? null,
                         $item['sku'] ?? null,
-                        isset($item['enabled']) && $item['enabled'] ? 1 : 0,
+                        isset($item['enabled']) ? 1 : 0,
                         $itemRank
                     )
                 );
