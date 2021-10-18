@@ -38,6 +38,7 @@ class POFormBO
                     $newVersion,
                     $requestCategory['name'],
                     $requestCategory['price'],
+                    $requestCategory['msrp'],
                     isset($requestCategory['enabled']) ? 1 : 0,
                     $categoryRank
                 )

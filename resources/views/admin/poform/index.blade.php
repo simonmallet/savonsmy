@@ -19,11 +19,12 @@
             <table class="table table-striped table-hover">
                 <thead class="table-secondary">
                 <tr>
-                    <th scope="col" style="width: 350px;"><input type="text" class="input-header-form input-category-name font-weight-bold" name="category[{{$category['id']}}][name]" value="{{$category['name']}}" placeholder="Nom de catégorie">
-                        (Prix <input type="text" class="input-header-form input-price font-weight-bold" name="category[{{$category['id']}}][price]" value="{{\App\Domain\Helpers\FormattingHelper::formatPrice($category['price'])}}" placeholder="0.00">)</th>
-                    <th colspan="4" scope="col">
-                        <div class="d-flex flex-row justify-content-end">
-                            <div><input class="btn-sm btn-primary" type="button" onclick="addVariant('category-tbody-{{$category['id']}}', {{$category['id']}})" value="Ajouter un variant"></div>
+                    <th colspan="5" scope="col" style="width: 500px;">
+                        <div class="d-flex flex-row align-items-center justify-content-start">
+                            <input type="text" class="input-header-form input-category-name font-weight-bold" name="category[{{$category['id']}}][name]" value="{{$category['name']}}" placeholder="Nom de catégorie">
+                            (Prix <input type="text" class="input-header-form input-price font-weight-bold" name="category[{{$category['id']}}][price]" value="{{\App\Domain\Helpers\FormattingHelper::formatPrice($category['price'])}}" placeholder="0.00">)
+                            (MSRP <input type="text" class="input-header-form input-price font-weight-bold" name="category[{{$category['id']}}][msrp]" value="{{\App\Domain\Helpers\FormattingHelper::formatPrice($category['msrp'])}}" placeholder="0.00">)
+                            <div class="ml-auto"><input class="btn-sm btn-primary" type="button" onclick="addVariant('category-tbody-{{$category['id']}}', {{$category['id']}})" value="Ajouter un variant"></div>
                             <div class="my-handle-header ml-3"><span class="my-handle">::</span></div>
                         </div>
                     </th>

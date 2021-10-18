@@ -7,14 +7,16 @@ class CategoryDTO
     private $version;
     private $name;
     private $price;
+    private $msrp;
     private $enabled;
     private $rank;
 
-    public function __construct(int $version, string $name, float $price, bool $enabled, int $rank)
+    public function __construct(int $version, string $name, float $price, float $msrp, bool $enabled, int $rank)
     {
         $this->version = $version;
         $this->name = $name;
         $this->price = $price;
+        $this->msrp = $msrp;
         $this->enabled = $enabled;
         $this->rank = $rank;
     }
@@ -41,6 +43,11 @@ class CategoryDTO
     public function getPrice(): float
     {
         return $this->price;
+    }
+
+    public function getMSRP(): float
+    {
+        return $this->msrp;
     }
 
     /**
