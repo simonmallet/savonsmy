@@ -48,6 +48,8 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('clients', [\App\Http\Controllers\Admin\ClientController::class, 'index'])->name('admin.clients.index');
         Route::get('clients/new', [\App\Http\Controllers\Admin\ClientController::class, 'addIndex'])->name('admin.clients.add.index');
         Route::post('clients/new', [\App\Http\Controllers\Admin\ClientController::class, 'addSubmit'])->name('admin.clients.add.submit');
+        Route::get('clients/{clientId}', [\App\Http\Controllers\Admin\ClientController::class, 'updateIndex'])->name('admin.clients.update.index');
+        Route::post('clients/{clientId}', [\App\Http\Controllers\Admin\ClientController::class, 'updateSubmit'])->name('admin.clients.update.submit');
     });
 });
 

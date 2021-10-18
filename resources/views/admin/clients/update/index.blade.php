@@ -11,7 +11,7 @@
     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
     <div class="table-responsive">
-        <form method="POST" action="{{ route('admin.clients.add.submit') }}">
+        <form method="POST" action="{{ route('admin.clients.update.submit', ['clientId' => $client->id]) }}">
 
             {{ csrf_field() }}
 

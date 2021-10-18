@@ -3,6 +3,7 @@
 namespace App\Domain\DAO;
 
 use App\Models\Client;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 
 class ClientDAO
@@ -20,6 +21,12 @@ class ClientDAO
 
     public function fetchInfo(int $clientId): Client
     {
-        return Client::where('id', $clientId)->first();
+        $client = Client::where('id', $clientId)->first();
+
+        if (!$client) {
+            throw new ModelNotFoundException('Client ' . $clientId . ' was not found');
+        }
+
+        return $client;
     }
 }

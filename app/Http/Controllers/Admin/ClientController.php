@@ -6,6 +6,7 @@ use App\Domain\BO\OrderBO;
 use App\Domain\DAO\ClientDAO;
 use App\Domain\DAO\UserDAO;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ClientRequest;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -22,8 +23,6 @@ class ClientController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
@@ -33,8 +32,6 @@ class ClientController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function addIndex()
@@ -44,11 +41,9 @@ class ClientController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function addSubmit(Request $request)
+    public function addSubmit(ClientRequest $request)
     {
         $client = new Client();
         $client->name = $request->get('name');
@@ -60,6 +55,52 @@ class ClientController extends Controller
 
         /** @todo: Faire une methode helper pour les messages */
         Session::flash('status', 'Client ajouté avec succès!');
+        Session::flash('alert-class', 'alert-success');
+
+        return redirect()->route('admin.clients.index');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function updateIndex(int $clientId)
+    {
+        try {
+            $client = $this->clientDAO->fetchInfo($clientId);
+        } catch (\Exception $e) {
+            Session::flash('status', "Oops! Le client #{$clientId} n'a pu être retrouvé");
+            Session::flash('alert-class', 'alert-danger');
+
+            return redirect()->route('admin.clients.index');
+        }
+        return view('admin.clients.update.index')
+            ->with('page_title_arguments', ['clientId' => $client->id])
+            ->with('client', $client);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function updateSubmit(int $clientId, ClientRequest $request)
+    {
+        try {
+            $client = $this->clientDAO->fetchInfo($clientId);
+        } catch (\Exception $e) {
+            Session::flash('status', "Oops! Le client #{$clientId} n'a pu être retrouvé");
+            Session::flash('alert-class', 'alert-danger');
+
+            return redirect()->route('admin.clients.index');
+        }
+
+        $client->name = $request->get('name');
+        $client->address = $request->get('address');
+        $client->phone_number = $request->get('phone_number');
+        $client->email = $request->get('email');
+        $client->discount_from_retail = (int) $request->get('discount_from_retail');
+        $client->save();
+
+        /** @todo: Faire une methode helper pour les messages */
+        Session::flash('status', 'Client modifié avec succès!');
         Session::flash('alert-class', 'alert-success');
 
         return redirect()->route('admin.clients.index');

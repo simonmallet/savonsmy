@@ -35,6 +35,7 @@ return [
     'page_title_admin/user/{userId}/assign_client' => 'Assigner un utilisateur à un client',
     'page_title_admin/clients' => 'Clients',
     'page_title_admin/clients/new' => 'Ajout d\'un nouveau client',
+    'page_title_admin/clients/{clientId}' => "Mise à jour du client # :clientId",
 
     'purchase_order_add_new_button' => 'Créer un bon de commande',
 
