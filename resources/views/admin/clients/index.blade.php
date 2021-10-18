@@ -33,7 +33,7 @@
                     <td>{{ $client['email'] }}</td>
                     <td>{{ $client['discount_from_retail'] }}%</td>
                     <td>{{ $client['active'] ? 'Oui' : 'Non' }}</td>
-                    <td class="text-center">
+                    <td class="text-center" nowrap>
                         <a class="btn btn-primary bi bi-pencil" role="button" href="{{ route('admin.order.view.index', $client['id']) }}"></a>
                         <button title="Télécharger" class="btn btn-primary bi bi-download"></button>
                     </td>

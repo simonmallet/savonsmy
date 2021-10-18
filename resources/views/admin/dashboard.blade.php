@@ -30,10 +30,10 @@
                     <td>{{ $item['id'] }}</td>
                     <td>{{ $item->client->name}}</td>
                     <td>{{ $item->totalItemsWithQuantities }}</td>
-                    <td><a href="{{ route('admin.order.view.status', $item['id']) }}">{{ __('lang.order_status_'.$item['status']) }}</a></td>
+                    <td nowrap><a href="{{ route('admin.order.view.status', $item['id']) }}">{{ __('lang.order_status_'.$item['status']) }}</a></td>
                     <td>{{ $item['created_at'] }}</td>
                     <td>{{ $item['updated_at'] }}</td>
-                    <td class="text-center">
+                    <td class="text-center" nowrap>
                         <a class="btn btn-primary bi bi-eye" role="button" href="{{ route('admin.order.view.index', $item['id']) }}"></a>
                         <a class="btn btn-primary bi bi-download" role="button" href="{{ route('admin.order.download', $item['id']) }}"></a>
                     </td>
