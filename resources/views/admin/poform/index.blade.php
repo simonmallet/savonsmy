@@ -7,7 +7,11 @@
         </div>
     @endif
 
-    <div><input class="btn btn-primary" type="button" onclick="addCategory()" value="Ajouter une categorie"></div>
+    <div class="mb-3">
+        <button class="btn btn-secondary bi bi-arrows-expand" onclick="showAllCategories();">Tout ouvrir</button>
+        <button class="btn btn-secondary bi bi-arrows-collapse" onclick="hideAllCategories();">Tout fermer</button>
+        <input class="btn btn-primary" type="button" onclick="addCategory()" value="Ajouter une categorie">
+    </div>
 
     <form id="poform">
 
@@ -21,6 +25,7 @@
                 <tr>
                     <th colspan="5" scope="col" style="width: 500px;">
                         <div class="d-flex flex-row align-items-center justify-content-start">
+                            <i class="bi bi-eye-slash-fill mr-2" onclick="toggleCategoryItemView(this, {{ $category['id'] }});"></i>
                             <input type="text" class="input-header-form input-category-name font-weight-bold" name="category[{{$category['id']}}][name]" value="{{$category['name']}}" placeholder="Nom de catégorie">
                             (Prix <input type="text" class="input-header-form input-price font-weight-bold" name="category[{{$category['id']}}][price]" value="{{\App\Domain\Helpers\FormattingHelper::formatPrice($category['price'])}}" placeholder="0.00">)
                             (MSRP <input type="text" class="input-header-form input-price font-weight-bold" name="category[{{$category['id']}}][msrp]" value="{{\App\Domain\Helpers\FormattingHelper::formatPrice($category['msrp'])}}" placeholder="0.00">)
@@ -30,7 +35,7 @@
                     </th>
                 </tr>
                 </thead>
-                <tbody class="category-items" id="category-tbody-{{$category['id']}}">
+                <tbody class="category-items" style="display: none;" id="category-tbody-{{$category['id']}}">
                 @forelse($category->items as $item)
                     <tr>
                         <td><input type="text" style="width: 350px;" class="input-header-form input-category-name" name="category[{{$category['id']}}][items][{{$item['id']}}][name]" value="{{$item['name']}}" placeholder="Nom de variant"></td>
@@ -129,11 +134,13 @@
                 '<table class="table table-striped table-hover">' +
                 '<thead class="table-secondary">' +
                 '<tr>' +
-                '<th scope="col" style="width: 285px;"><input type="text" class="input-header-form font-weight-bold" name="category['+categoryIndex+'][name]" placeholder="Nom de catégorie">' +
-                '(Prix <input type="text" class="input-header-form input-price font-weight-bold" name="category['+categoryIndex+'][price]" placeholder="0.00">)</th>' +
-                '<th colspan="4" scope="col">' +
-                    '<div class="d-flex flex-row justify-content-end">' +
-                        '<div><input class="btn-sm btn-primary" type="button" onclick="addVariant(\'category-tbody-'+categoryIndex+'\', '+categoryIndex+')" value="Ajouter un variant"></div>' +
+                '<th scope="col" colspan="5" style="width: 500px;">' +
+                    '<div class="d-flex flex-row align-items-center justify-content-start">' +
+                        '<i class="bi bi-eye-fill mr-2" onclick="toggleCategoryItemView(this, '+categoryIndex+');"></i>' +
+                        '<input type="text" class="input-header-form input-category-name font-weight-bold" name="category['+categoryIndex+'][name]" placeholder="Nom de catégorie">' +
+                        '(Prix <input type="text" class="input-header-form input-price font-weight-bold" name="category['+categoryIndex+'][price]" placeholder="0.00">)' +
+                        '(MSRP <input type="text" class="input-header-form input-price font-weight-bold" name="category['+categoryIndex+'][msrp]" placeholder="0.00">)' +
+                        '<div class="ml-auto"><input class="btn-sm btn-primary" type="button" onclick="addVariant(\'category-tbody-'+categoryIndex+'\', '+categoryIndex+')" value="Ajouter un variant"></div>' +
                         '<div class="my-handle-header ml-3"><span class="my-handle">::</span></div>' +
                     '</div>' +
                 '</th>' +
@@ -154,13 +161,51 @@
                 selector.children('tr').remove();
             }
             selector.append('<tr>' +
-                '<td><input type="text" style="width: 285px;" class="input-header-form" name="category['+categoryId+'][items]['+categoryItemIndex+'][name]" placeholder="Nom de variant"></td>' +
+                '<td><input type="text" style="width: 350px;" class="input-header-form" name="category['+categoryId+'][items]['+categoryItemIndex+'][name]" placeholder="Nom de variant"></td>' +
                 '<td style="width: 450px;"><input type="text" style="width: 450px;" class="input-header-form" name="category['+categoryId+'][items]['+categoryItemIndex+'][description]" placeholder="Description"></td>' +
                 '<td>Sku: <input type="text" style="width: 40px;" class="input-header-form" name="category['+categoryId+'][items]['+categoryItemIndex+'][sku]" placeholder="0000"></td>' +
                 '<td>Actif <input type="checkbox" name="category['+categoryId+'][items]['+categoryItemIndex+'][enabled]" checked></td>' +
                 '<td><span class="my-handle">::</span></td>' +
                 '</tr>');
             categoryItemIndex++;
+        }
+
+        function showAllCategories()
+        {
+            const categoriesList = document.getElementsByClassName('category-items');
+            const eyeIconElements = document.getElementsByClassName("bi-eye-slash-fill");
+
+            while (eyeIconElements.length) eyeIconElements[0].className = eyeIconElements[0].className.replace( /bi-eye-slash-fill/g , 'bi-eye-fill' );
+
+            for (let i = 0; i < categoriesList.length; i++) {
+                categoriesList[i].style.display = 'contents';
+            }
+        }
+
+        function hideAllCategories()
+        {
+            const categoriesList = document.getElementsByClassName('category-items');
+            const eyeIconElements = document.getElementsByClassName("bi-eye-fill");
+
+            while (eyeIconElements.length) eyeIconElements[0].className = eyeIconElements[0].className.replace( /bi-eye-fill/g , 'bi-eye-slash-fill' );
+
+            for (let i = 0; i < categoriesList.length; i++) {
+                categoriesList[i].style.display = 'none';
+            }
+        }
+
+        function toggleCategoryItemView(eyeIconElement, categoryId)
+        {
+            const tBodyElement = document.getElementById('category-tbody-' + categoryId);
+            if (tBodyElement.style.display === 'none') {
+                tBodyElement.style.display = 'contents';
+                eyeIconElement.classList.remove('bi-eye-slash-fill');
+                eyeIconElement.classList.add('bi-eye-fill');
+            } else {
+                tBodyElement.style.display = 'none';
+                eyeIconElement.classList.remove('bi-eye-fill');
+                eyeIconElement.classList.add('bi-eye-slash-fill');
+            }
         }
     </script>
 @endsection
