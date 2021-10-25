@@ -38,6 +38,7 @@ class NewPurchaseOrder extends Mailable
         $client = $clientDAO->fetchInfo($this->orderDTO->getClientId());
 
         return $this->view('emails.purchase_order.new')
+            ->subject("Nouvelle commande de [{$client->name}] [#{$this->orderDTO->getOrderId()}]")
             ->with([
                 'clientName' => $client->name,
                 'orderNumber' => $this->orderDTO->getOrderId(),

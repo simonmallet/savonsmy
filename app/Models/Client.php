@@ -22,4 +22,12 @@ class Client extends Model
         'active',
         'discount_from_retail',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany|Client[]
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User', 'user_clients')->using(UserClient::class);
+    }
 }
