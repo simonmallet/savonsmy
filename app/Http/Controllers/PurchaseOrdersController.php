@@ -11,6 +11,7 @@ use App\Domain\DAO\VersionDAO;
 use App\Domain\DTO\OrderDTO;
 use App\Domain\DTO\OrderItemDTO;
 use App\Domain\Helpers\ClientHelper;
+use App\Domain\Helpers\OrderHelper;
 use App\Mail\NewPurchaseOrder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -85,7 +86,9 @@ class PurchaseOrdersController extends Controller
         return view('purchase_orders.view')
             ->with('page_title_arguments', ['orderId' => $orderId, 'createdAt' => $order->getSentAt()])
             ->with('categories', $filteredCategories)
-            ->with('order_items', $orderItems);
+            ->with('order_items', $orderItems)
+            ->with('order_sub_total', OrderHelper::calculateOrderSubtotal($filteredCategories, $orderItems, Auth::user()->client[0]->discount_from_retail))
+            ->with('user', ['discount_from_retail_price' => Auth::user()->client[0]->discount_from_retail]);
     }
 
     public function addIndex()

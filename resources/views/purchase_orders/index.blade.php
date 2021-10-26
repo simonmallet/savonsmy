@@ -30,7 +30,7 @@
                         <td>{{ __('lang.order_status_'.$order->status) }}</td>
                         <td>{{ $order->created_at }}</td>
                         <td>{{ $order->updated_at }}</td>
-                        <td class="text-center">
+                        <td class="text-center" nowrap>
                             <a class="btn btn-primary bi bi-eye" role="button" href="{{ route('purchase_orders.view.index', $order->id) }}"></a>
                             @switch($order->status)
                                 @case(\App\Constants\OrderStatus::NOT_TREATED)
