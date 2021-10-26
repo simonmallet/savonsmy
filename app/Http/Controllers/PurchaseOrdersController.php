@@ -57,6 +57,37 @@ class PurchaseOrdersController extends Controller
         return view('purchase_orders.index')->with('historicalPurchaseOrders', $this->orderBO->fetchLatestOrdersForClient(Auth::user()->client[0]));
     }
 
+    public function view($orderId)
+    {
+        try {
+            $order = $this->orderDAO->fetchInfo(ClientHelper::getClientId(), $orderId);
+        } catch (\Exception $e) {
+            Session::flash('message', "Oops! La commande #{$orderId} n'a pu être retrouvée");
+            Session::flash('alert-class', 'alert-danger');
+
+            return redirect()->route('purchase_orders.index');
+        }
+
+        $orderItems = $this->orderItemDAO->fetchList($orderId);
+
+        $filteredCategories = $this->poFormDAO->getPOFormFromVersion($order->getVersionId())->filter(function ($category) use ($orderItems) {
+            /** @var OrderItemDTO $orderItem */
+            foreach ($orderItems as $orderItem) {
+                foreach ($category->items as $categoryItem) {
+                    if ($orderItem->getCategoryItemId() === $categoryItem->id) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        });
+
+        return view('purchase_orders.view')
+            ->with('page_title_arguments', ['orderId' => $orderId, 'createdAt' => $order->getSentAt()])
+            ->with('categories', $filteredCategories)
+            ->with('order_items', $orderItems);
+    }
+
     public function addIndex()
     {
         return view('purchase_orders.add')

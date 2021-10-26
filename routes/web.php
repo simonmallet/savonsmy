@@ -28,9 +28,10 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/purchase-orders', [PurchaseOrdersController::class, 'index'])->name('purchase_orders.index');
         Route::get('/purchase-orders/add', [PurchaseOrdersController::class, 'addIndex'])->name('purchase_orders.add.index');
         Route::post('/purchase-orders/add', [PurchaseOrdersController::class, 'addSubmit'])->name('purchase_orders.add.submit');
-        Route::get('/purchase-orders/update/{orderId}', [PurchaseOrdersController::class, 'updateIndex'])->name('purchase_orders.update.index');
-        Route::post('/purchase-orders/update/{orderId}', [PurchaseOrdersController::class, 'updateSubmit'])->name('purchase_orders.update.submit');
-        Route::delete('/purchase-orders/delete/{orderId}', [PurchaseOrdersController::class, 'deleteSubmit'])->name('purchase_orders.delete.submit');
+        Route::get('/purchase-orders/{orderId}', [PurchaseOrdersController::class, 'view'])->name('purchase_orders.view.index');
+        Route::get('/purchase-orders/{orderId}/update', [PurchaseOrdersController::class, 'updateIndex'])->name('purchase_orders.update.index');
+        Route::post('/purchase-orders/{orderId}/update', [PurchaseOrdersController::class, 'updateSubmit'])->name('purchase_orders.update.submit');
+        Route::delete('/purchase-orders/{orderId}/delete', [PurchaseOrdersController::class, 'deleteSubmit'])->name('purchase_orders.delete.submit');
     });
 
     Route::group(['prefix' => 'admin', 'middleware' => ['role:super-admin']], function () {

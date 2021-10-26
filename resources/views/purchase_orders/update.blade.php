@@ -8,6 +8,8 @@
             </div>
         @endif
 
+        @include('purchase_orders/helpers/go_back_button')
+
         <form method="POST" action="{{ route('purchase_orders.update.submit', ['orderId' => $order_id]) }}">
 
             {{ csrf_field() }}

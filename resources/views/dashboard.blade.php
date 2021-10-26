@@ -8,7 +8,9 @@
             </div>
         @endif
 
-        {{ __('lang.welcome_message', ['user' => Auth::user()->name]) }}
+        <p>{{ __('lang.welcome_message', ['user' => Auth::user()->name]) }}</p>
+
+            <p><a href="{{ route('purchase_orders.index') }}">Cliquer ici</a> pour accéder à la section Bons de commandes</p>
 
         @cannot(\App\Models\User::PERMISSION_FILL_PURCHASE_ORDER)
             <div>

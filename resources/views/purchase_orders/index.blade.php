@@ -31,21 +31,19 @@
                         <td>{{ $order->created_at }}</td>
                         <td>{{ $order->updated_at }}</td>
                         <td class="text-center">
+                            <a class="btn btn-primary bi bi-eye" role="button" href="{{ route('purchase_orders.view.index', $order->id) }}"></a>
                             @switch($order->status)
                                 @case(\App\Constants\OrderStatus::NOT_TREATED)
-                                <a class="btn btn-primary"
-                                   href="{{ route('purchase_orders.update.index', $order->id) }}"
-                                   role="button">Modifier</a>
+                                <a class="btn btn-secondary bi bi-pencil" role="button" href="{{ route('purchase_orders.update.index', $order->id) }}"></a>
                                 <form method="POST" style="display: inline-block;"
                                       action="{{ route('purchase_orders.delete.submit', $order->id) }}">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
 
-                                    <input type="submit" class="btn btn-danger delete-form" value="Supprimer">
+                                    <button class="btn bg-danger delete-form"><i class="btn-danger bi bi-trash"></i></button>
                                 </form>
                                 @break
                                 @default
-                                <button class="btn btn-primary">Voir</button>
                             @endswitch
                         </td>
                     </tr>

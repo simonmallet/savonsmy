@@ -13,6 +13,7 @@ return [
     'register_button_form' => 'Enregistrer',
     'email' => 'Adresse courriel',
     'page_title_login' => 'Connexion',
+    'go_back' => 'Retour',
     'login_button' => 'Se connecter',
     'password' => 'Mot de passe',
     'remember_me' => 'Se souvenir de moi',
@@ -24,7 +25,8 @@ return [
     'page_title_dashboard' => 'Bienvenue!',
     'page_title_purchase-orders' => 'Bons de commandes',
     'page_title_purchase-orders/add' => 'Envoyer un bon de commande (Dernière mise à jour: :currentVersionDate)',
-    'page_title_purchase-orders/update/{orderId}' => 'Modifier le bon de commande # :orderId',
+    'page_title_purchase-orders/{orderId}' => 'Visualisation de la commande # :orderId envoyée le :createdAt',
+    'page_title_purchase-orders/{orderId}/update' => 'Modifier le bon de commande # :orderId',
 
     'navigation_dashboard_title' => 'Tableau de bord',
     'navigation_purchase_order_title' => 'Bons de commandes',
