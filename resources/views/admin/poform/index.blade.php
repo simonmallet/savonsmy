@@ -138,7 +138,6 @@
                         '<i class="bi bi-eye-fill mr-2" onclick="toggleCategoryItemView(this, '+categoryIndex+');"></i>' +
                         '<input type="text" class="input-header-form input-category-name font-weight-bold" name="category['+categoryIndex+'][name]" placeholder="Nom de catégorie">' +
                         '(Prix <input type="text" class="input-header-form input-price font-weight-bold" name="category['+categoryIndex+'][price]" placeholder="0.00">)' +
-                        '(MSRP <input type="text" class="input-header-form input-price font-weight-bold" name="category['+categoryIndex+'][msrp]" placeholder="0.00">)' +
                         '<div class="ml-auto"><input class="btn-sm btn-primary" type="button" onclick="addVariant(\'category-tbody-'+categoryIndex+'\', '+categoryIndex+')" value="Ajouter un variant"></div>' +
                         '<div class="my-handle-header ml-3"><span class="my-handle">::</span></div>' +
                     '</div>' +
