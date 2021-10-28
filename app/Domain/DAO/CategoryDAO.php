@@ -18,7 +18,6 @@ class CategoryDAO
             'version_id' => $categoryDTO->getVersion(),
             'name' => $categoryDTO->getName(),
             'price' => $categoryDTO->getPrice(),
-            'msrp' => $categoryDTO->getMSRP(),
             'enabled' => $categoryDTO->isEnabled(),
             'rank' => $categoryDTO->getRank(),
         ]);

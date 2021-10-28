@@ -28,7 +28,6 @@
                             <i class="bi bi-eye-slash-fill mr-2" onclick="toggleCategoryItemView(this, {{ $category['id'] }});"></i>
                             <input type="text" class="input-header-form input-category-name font-weight-bold" name="category[{{$category['id']}}][name]" value="{{$category['name']}}" placeholder="Nom de catégorie">
                             (Prix <input type="text" class="input-header-form input-price font-weight-bold" name="category[{{$category['id']}}][price]" value="{{\App\Domain\Helpers\FormattingHelper::formatPrice($category['price'])}}" placeholder="0.00">)
-                            (MSRP <input type="text" class="input-header-form input-price font-weight-bold" name="category[{{$category['id']}}][msrp]" value="{{\App\Domain\Helpers\FormattingHelper::formatPrice($category['msrp'])}}" placeholder="0.00">)
                             <div class="ml-auto"><input class="btn-sm btn-primary" type="button" onclick="addVariant('category-tbody-{{$category['id']}}', {{$category['id']}})" value="Ajouter un variant"></div>
                             <div class="my-handle-header ml-3"><span class="my-handle">::</span></div>
                         </div>

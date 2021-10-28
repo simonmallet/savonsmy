@@ -18,7 +18,6 @@ class Categorie extends Model
         'version_id',
         'name',
         'price',
-        'msrp',
         'enabled',
         'rank',
     ];
