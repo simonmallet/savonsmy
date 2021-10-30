@@ -29,4 +29,15 @@ class ClientDAO
 
         return $client;
     }
+
+    public function addOrUpdateClientInfo(Client $client, string $name, ?string $address, ?string $phoneNumber, string $email, float $discountFromRetail): void
+    {
+        $client->name = $name;
+        $client->address = $address;
+        $client->phone_number = $phoneNumber;
+        $client->email = $email;
+        $client->discount_from_retail = $discountFromRetail;
+
+        $client->save();
+    }
 }

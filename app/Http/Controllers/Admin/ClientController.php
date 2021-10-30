@@ -45,13 +45,14 @@ class ClientController extends Controller
      */
     public function addSubmit(ClientRequest $request)
     {
-        $client = new Client();
-        $client->name = $request->get('name');
-        $client->address = $request->get('address');
-        $client->phone_number = $request->get('phone_number');
-        $client->email = $request->get('email');
-        $client->discount_from_retail = (int) $request->get('discount_from_retail');
-        $client->save();
+        $this->clientDAO->addOrUpdateClientInfo(
+            new Client(),
+            $request->get('name'),
+            $request->get('address'),
+            $request->get('phone_number'),
+            $request->get('email'),
+            (float) $request->get('discount_from_retail')
+        );
 
         /** @todo: Faire une methode helper pour les messages */
         Session::flash('status', 'Client ajouté avec succès!');
@@ -92,12 +93,14 @@ class ClientController extends Controller
             return redirect()->route('admin.clients.index');
         }
 
-        $client->name = $request->get('name');
-        $client->address = $request->get('address');
-        $client->phone_number = $request->get('phone_number');
-        $client->email = $request->get('email');
-        $client->discount_from_retail = (int) $request->get('discount_from_retail');
-        $client->save();
+        $this->clientDAO->addOrUpdateClientInfo(
+            $client,
+            $request->get('name'),
+            $request->get('address'),
+            $request->get('phone_number'),
+            $request->get('email'),
+            (float) $request->get('discount_from_retail')
+        );
 
         /** @todo: Faire une methode helper pour les messages */
         Session::flash('status', 'Client modifié avec succès!');
