@@ -4,7 +4,7 @@ namespace App\Domain\Helpers;
 
 class OrderHelper
 {
-    public static function calculateOrderSubtotal($filteredCategories, $orderItems, int $customerDiscountPercentage): float
+    public static function calculateOrderSubtotal($filteredCategories, $orderItems, float $customerDiscountPercentage): float
     {
         $subTotal = 0;
         foreach ($filteredCategories as $category) {
