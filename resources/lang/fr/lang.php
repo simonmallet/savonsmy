@@ -31,6 +31,7 @@ return [
     'navigation_dashboard_title' => 'Tableau de bord',
     'navigation_purchase_order_title' => 'Bons de commandes',
     'purchase_order_lead' => 'Vos commandes',
+    'page_title_admin/orders' => 'Liste des commandes',
     'page_title_admin/orders/{orderId}' => 'Commande # :orderId',
     'page_title_admin/orders/{orderId}/status' => 'Changer le status de la commande # :orderId',
     'page_title_admin/poform' => 'Mise a jour du formulaire (v:currentVersion => v:nextVersion)',

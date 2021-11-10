@@ -48,7 +48,17 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index($orderId)
+    public function index()
+    {
+        return view('admin.orders.index')->with('purchaseOrders', $this->orderBO->fetchLatestOrdersFromAllClients(0, []));
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function view($orderId)
     {
         $order = $this->getOrder($orderId);
 
@@ -78,7 +88,7 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function indexStatus($orderId)
+    public function viewStatus($orderId)
     {
         $order = $this->getOrder($orderId);
 

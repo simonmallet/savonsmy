@@ -38,8 +38,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
         Route::get('poform', [\App\Http\Controllers\Admin\POFormUpdateController::class, 'index'])->name('admin.poform.index');
         Route::post('poform', [\App\Http\Controllers\Admin\POFormUpdateController::class, 'submit'])->name('admin.poform.submit');
-        Route::get('orders/{orderId}', [\App\Http\Controllers\Admin\OrderController::class, 'index'])->name('admin.order.view.index');
-        Route::get('orders/{orderId}/status', [\App\Http\Controllers\Admin\OrderController::class, 'indexStatus'])->name('admin.order.view.status');
+        Route::get('orders', [\App\Http\Controllers\Admin\OrderController::class, 'index'])->name('admin.order.index');
+        Route::get('orders/{orderId}', [\App\Http\Controllers\Admin\OrderController::class, 'view'])->name('admin.order.view.index');
+        Route::get('orders/{orderId}/status', [\App\Http\Controllers\Admin\OrderController::class, 'viewStatus'])->name('admin.order.view.status');
         Route::put('orders/{orderId}/status', [\App\Http\Controllers\Admin\OrderController::class, 'statusSubmit'])->name('admin.order.view.statusSubmit');
         Route::get('orders/{orderId}/download', [\App\Http\Controllers\Admin\OrderController::class, 'download'])->name('admin.order.download');
         Route::get('user/{userId}/assign_client', [\App\Http\Controllers\Admin\UserController::class, 'assignClientIndex'])->name('admin.user.assign_client.index');
