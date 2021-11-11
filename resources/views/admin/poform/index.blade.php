@@ -56,6 +56,7 @@
         @endforelse
     </div>
     <div class="d-flex flex-row justify-content-end">
+        <div id="form-error-message" class="btn-danger mr-3 p-2 d-none">ATTENTION! Une erreur est survenue lors de la sauvegarde! <span id="custom_error_msg"></span></div>
         <div id="loading-icon" class="mr-2 d-none"><img width="37px" height="37px" src="{{ asset('images/iphone-spinner-2.gif') }}"></div>
         <div><button id="submit-btn" class="btn btn-success save-data">Sauvegarder</button></div>
     </div>
@@ -77,6 +78,7 @@
                 event.preventDefault();
                 window.$('#submit-btn').prop('disabled', true);
                 window.$('#loading-icon').removeClass('d-none');
+                window.$('#form-error-message').addClass('d-none');
 
                 window.jQuery.ajax({
                     type:"POST",
@@ -103,7 +105,14 @@
 
                     },
                     error: function(errors) {
-                        console.log(errors);
+                        window.$('#form-error-message').removeClass('d-none');
+                        let msgs = '';
+                        for (let k in errors.responseJSON.errors){
+                            if (errors.responseJSON.errors.hasOwnProperty(k)) {
+                                msgs += k + ': ' + errors.responseJSON.errors[k] + '\n';
+                            }
+                        }
+                        window.$('#custom_error_msg').text(msgs);
                     },
                     complete: function() {
                         window.$('#submit-btn').prop('disabled', false);

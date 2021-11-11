@@ -10,7 +10,7 @@ use App\Domain\DAO\POFormDAO;
 use App\Domain\DAO\VersionDAO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\POFormUpdateRequest;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class POFormUpdateController extends Controller
 {
@@ -52,11 +52,17 @@ class POFormUpdateController extends Controller
             ->with('nextAvailableCategoryItemId', $this->categoryItemDAO->getNextAvailableCategoryItemId());
     }
 
-    /** @todo: faire les validateurs */
     public function submit(POFormUpdateRequest $request)
     {
-        $this->poFormBO->updatePOForm($request->all());
+        DB::beginTransaction();
+        try {
+            $this->poFormBO->updatePOForm($request->all());
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['errors' => ['info' => $e->getMessage()]], 500);
+        }
 
+        DB::commit();
         return response()->json(['status' => OperationStatus::STATUS_OK]);
     }
 }

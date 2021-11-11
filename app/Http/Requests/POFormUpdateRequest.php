@@ -24,7 +24,14 @@ class POFormUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'category.*.price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'category.*.price.regex' => "Le montant est invalide. Formats acceptés: 5 ou 5.5 ou 5.55",
         ];
     }
 }
