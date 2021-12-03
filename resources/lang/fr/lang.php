@@ -27,9 +27,11 @@ return [
     'page_title_purchase-orders/add' => 'Envoyer un bon de commande (Dernière mise à jour: :currentVersionDate)',
     'page_title_purchase-orders/{orderId}' => 'Visualisation de la commande # :orderId envoyée le :createdAt',
     'page_title_purchase-orders/{orderId}/update' => 'Modifier le bon de commande # :orderId',
+    'page_title_config' => "Panneau de configuration",
 
     'navigation_dashboard_title' => 'Tableau de bord',
     'navigation_purchase_order_title' => 'Bons de commandes',
+    'navigation_config' => 'Configuration',
     'purchase_order_lead' => 'Vos commandes',
     'page_title_admin/orders' => 'Liste des commandes',
     'page_title_admin/orders/{orderId}' => 'Commande # :orderId',
@@ -57,4 +59,7 @@ return [
     'register_validation_pwd_required' => 'Le mot de passe est requis',
     'register_validation_pwd_min' => 'Le mot de passe doit contenir un minimum de 8 caractères',
     'register_validation_pwd_confirm' => 'Le mot de passe de confirmation doit être le même que le mot de passe',
+
+    'label_no_configuration_found' => "Aucune configuration trouvée",
+    'config_RECEIVE_EMAIL_WHEN_ORDER_STATUS_CHANGE' => "Recevoir un avis par courriel lorsque le status d'une commande est changé",
 ];

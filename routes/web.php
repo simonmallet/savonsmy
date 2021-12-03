@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PurchaseOrdersController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\ConfigController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/config', [ConfigController::class, 'index'])->name('config.index');
+    Route::post('/config', [ConfigController::class, 'update'])->name('config.update');
 
     Route::group(['middleware' => ['can:'.\App\Models\User::PERMISSION_FILL_PURCHASE_ORDER]], function () {
         Route::get('/purchase-orders', [PurchaseOrdersController::class, 'index'])->name('purchase_orders.index');

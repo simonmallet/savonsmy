@@ -76,6 +76,9 @@
                                         <a class="nav-link {{ (request()->routeIs('purchase_orders.*')) ? 'active' : '' }}" href="{{ route('purchase_orders.index') }}">{{ __('lang.navigation_purchase_order_title') }}</a>
                                     </li>
                                 @endcan
+                                <li class="nav-item">
+                                    <a class="nav-link {{ (request()->routeIs('config.index')) ? 'active' : '' }}" href="{{ route('config.index') }}">{{ __('lang.navigation_config') }}</a>
+                                </li>
                             </ul>
                         @endrole
                     @endguest
