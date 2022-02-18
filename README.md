@@ -14,6 +14,15 @@ status of the order to "IN PROGRESS" and then "COMPLETED".
 
 The client will also receive email notifications when the status of its order changes.
 
+## Demo
+Visit [Savons My - Purchase Order DEMO](https://savonsmy.simonmallet.com/login)
+- Admin portal
+  - username: admin@mysite.com
+  - password: password
+- Client portal
+  - username: partner@mysite.com
+  - password: password
+
 ## How to install
 - git clone git@github.com:simonmallet/savonsmy.git
 - To facilitate development I use [docker-compose-laravel](https://github.com/aschmelyun/docker-compose-laravel) 
